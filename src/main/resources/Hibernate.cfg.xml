@@ -11,9 +11,9 @@
         <property name = "hibernate.connection.password"></property>
         <property name = "hibernate.hbm2ddl.auto">update</property>
         <property name = "hibernate.show_sql">true</property>
-        <mapping resource = "com/i2i/cms/model/Student.hbm.xml"/>
-        <mapping resource = "com/i2i/cms/model/FeeDetail.hbm.xml"/>
-		<mapping resource = "com/i2i/cms/model/Grade.hbm.xml"/>
-		<mapping resource = "com/i2i/cms/model/Sport.hbm.xml"/>
+        <mapping resource = "Student.hbm.xml"/>
+        <mapping resource = "FeeDetail.hbm.xml"/>
+	<mapping resource = "Grade.hbm.xml"/>
+	<mapping resource = "Sport.hbm.xml"/>
     </session-factory>
 </hibernate-configuration>
