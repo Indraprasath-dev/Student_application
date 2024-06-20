@@ -1,0 +1,14 @@
+<!DOCTYPE hibernate-mapping PUBLIC 
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN" 
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="com.i2i.cms.model.FeeDetail" table="fee_detail">
+        <id name="feeId" column="fee_id">
+            <generator class="native"/>
+        </id>
+        <property name="tuitionFee" column="tuition_fee" type="int"/>
+        <property name="busFee" column="bus_fee" type="int"/>
+        <property name="hostelFee" column="hostel_fee" type="int"/>
+        <one-to-one name="student" class="com.i2i.cms.model.Student" cascade="all"/>
+    </class>
+</hibernate-mapping>

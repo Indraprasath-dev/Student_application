@@ -1,0 +1,19 @@
+<!DOCTYPE hibernate-mapping PUBLIC 
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN" 
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="com.i2i.cms.model.Student" table="student">
+        <id name="id" column="id">
+            <generator class="native"/>
+        </id>
+        <property name="name" column="name" type="string"/>
+        <property name="dob" column="dob" type="date"/>
+        <one-to-one name="feeDetail" class="com.i2i.cms.model.FeeDetail" cascade="all"/>
+        <many-to-one name="grade" class="com.i2i.cms.model.Grade" cascade="persist" column="grade_id" lazy="false"/>
+        <set name="sports" table="student_sport" lazy="false" fetch = "select" cascade="save-update">
+            <key column="student_id"/>
+            <many-to-many column="sport_id" class="com.i2i.cms.model.Sport"/>
+        </set>
+    </class>
+</hibernate-mapping>
+
