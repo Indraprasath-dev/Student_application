@@ -39,7 +39,7 @@ public class StudentDao {
             if (null != transaction) {
                 transaction.rollback();
             }
-			throw new StudentException("Error occurred while adding student " + student.getName(), e);
+	    throw new StudentException("Error occurred while adding student " + student.getName(), e);
         }
     }
 	
