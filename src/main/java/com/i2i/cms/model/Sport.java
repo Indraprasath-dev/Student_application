@@ -10,7 +10,6 @@ import com.i2i.cms.model.Student;
  * </p>
  */
 public class Sport {
-
     private int sportId;
     private String sportName;
     private String coach;
@@ -62,5 +61,4 @@ public class Sport {
                      .append("' ");
         return stringBuilder.toString();
     }
-
 }
