@@ -54,22 +54,16 @@ public class SportDao {
      * @throws StudentException If there is any error during the retrieval process.
      */
     public Set<Sport> retrieveSports(List<Integer> sportPreference) throws StudentException {
-        Transaction transaction = null;
         Set<Sport> sports = new HashSet<>();
         try (Session session = sessionFactory.openSession()) {
-            transaction = session.beginTransaction();
             if (null != sportPreference) {
                 Query<Sport> query = session.createQuery(
                     "SELECT s FROM Sport s WHERE s.sportId IN :preferenceList", Sport.class);
                 query.setParameter("preferenceList", sportPreference);
                 sports.addAll(query.getResultList());
-                transaction.commit();
             }
             return sports;
         } catch (Exception e) {
-            if (null != transaction) {
-                transaction.rollback();
-            }
             throw new StudentException("Error occurred while retrieving sport", e);
         }
     }
