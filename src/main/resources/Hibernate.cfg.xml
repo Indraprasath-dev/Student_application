@@ -10,7 +10,7 @@
         <property name = "hibernate.show_sql">true</property>
         <mapping class = "com.i2i.cms.model.Student"/>
         <mapping class = "com.i2i.cms.model.FeeDetail"/>
-	    <mapping class = "com.i2i.cms.model.Grade"/>
-	    <mapping class = "com.i2i.cms.model.Sport"/>
+	<mapping class = "com.i2i.cms.model.Grade"/>
+	<mapping class = "com.i2i.cms.model.Sport"/>
     </session-factory>
 </hibernate-configuration>
