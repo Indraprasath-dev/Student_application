@@ -15,12 +15,12 @@ public class HibernateConnection {
     private static SessionFactory sessionFactory;
 
     static{
-            Dotenv dotenv = Dotenv.load();
-            Configuration configuration = new Configuration().configure();
-            configuration.setProperty("hibernate.connection.url", dotenv.get("URL"));
-            configuration.setProperty("hibernate.connection.username", dotenv.get("USER"));
-            configuration.setProperty("hibernate.connection.password", dotenv.get("PASSWORD"));
-            sessionFactory = configuration.buildSessionFactory();
+	Dotenv dotenv = Dotenv.load();
+        Configuration configuration = new Configuration().configure();
+        configuration.setProperty("hibernate.connection.url", dotenv.get("URL"));
+        configuration.setProperty("hibernate.connection.username", dotenv.get("USER"));
+        configuration.setProperty("hibernate.connection.password", dotenv.get("PASSWORD"));
+        sessionFactory = configuration.buildSessionFactory();
     }
 
     /**
