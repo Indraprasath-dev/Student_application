@@ -51,17 +51,18 @@ public class StudentService {
     public Student addStudentWithFeeDetail(String name, Date dob, int tuitionFee, int busFee
                             , int hostelFee , int standard, String section, List<Integer> selectedSports) throws StudentException {
         Student student = new Student();
-        Grade grade = gradeService.addGradeId(standard, section);
-        student.setGrade(grade);
         student.setName(name);
         student.setDob(dob);
+        Grade grade = gradeService.addGradeId(standard, section);
+        student.setGrade(grade);
         FeeDetail feeDetail = new FeeDetail();
         feeDetail.setTuitionFee(tuitionFee);
         feeDetail.setBusFee(busFee);
         feeDetail.setHostelFee(hostelFee);
+        feeDetail.setStudent(student);
+        student.setFeeDetail(feeDetail);
         Set<Sport> sports = sportService.retrieveSports(selectedSports);
         student.setSports(sports);
-        student.setFeeDetail(feeDetail);
         return studentDao.insertStudent(student);
     }
     

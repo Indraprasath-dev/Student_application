@@ -48,4 +48,5 @@ public class SportService {
     public Set<Sport> retrieveSports(List<Integer> selectedSports) throws StudentException {
         return sportDao.retrieveSports(selectedSports);
     }
+
 }

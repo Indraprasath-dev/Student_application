@@ -20,8 +20,7 @@ import com.i2i.cms.model.Sport;
  * </p>
  */
 public class SportDao {
-    private HibernateConnection hibernateConnection = HibernateConnection.getInstance();
-    private SessionFactory sessionFactory = hibernateConnection.getSessionFactory();
+    private SessionFactory sessionFactory = HibernateConnection.getSessionFactory();
 	
     /**
      * <p>

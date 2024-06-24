@@ -17,8 +17,7 @@ import com.i2i.cms.model.Student;
  * </p>
  */
 public class StudentDao {
-    private HibernateConnection hibernateConnection = HibernateConnection.getInstance();
-    private SessionFactory sessionFactory = hibernateConnection.getSessionFactory();
+    private SessionFactory sessionFactory = HibernateConnection.getSessionFactory();
 	
     /**
      * <p>
@@ -39,7 +38,7 @@ public class StudentDao {
             if (null != transaction) {
                 transaction.rollback();
             }
-	    throw new StudentException("Error occurred while adding student " + student.getName(), e);
+			throw new StudentException("Error occurred while adding student " + student.getName(), e);
         }
     }
 	
@@ -87,7 +86,7 @@ public class StudentDao {
         try (Session session = sessionFactory.openSession()) {
             transaction = session.beginTransaction();
             session.update(student);
-	    transaction.commit();
+			transaction.commit();
             return student;
         } catch (Exception e) {
             if (null != transaction) {

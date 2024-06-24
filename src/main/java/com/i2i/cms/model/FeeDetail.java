@@ -1,24 +1,38 @@
 package com.i2i.cms.model;
 
-import com.i2i.cms.model.Student;
+import javax.persistence.*;
 
 /**
  * <p>
- * Represents the fee details of a student, including fee ID, tuition fee, 
+ * Represents the fee details of a student, including fee ID, tuition fee,
  * bus fee and hostel fee.
  * </p>
  */
+@Entity
+@Table(name = "fee_detail")
 public class FeeDetail {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "fee_id")
     private int feeId;
+
+    @Column(name = "tuition_fee")
     private int tuitionFee;
+
+    @Column(name = "bus_fee")
     private int busFee;
+
+    @Column(name = "hostel_fee")
     private int hostelFee;
+
+    @OneToOne
+    @JoinColumn(name = "student_id")
     private Student student;
-	
+
     public int getFeeId() {
         return feeId;
     }
-    
+
     public void setFeeId(int feeId) {
         this.feeId = feeId;
     }
@@ -26,7 +40,7 @@ public class FeeDetail {
     public int getTuitionFee() {
         return tuitionFee;
     }
-    
+
     public void setTuitionFee(int tuitionFee) {
         this.tuitionFee = tuitionFee;
     }
@@ -34,7 +48,7 @@ public class FeeDetail {
     public int getBusFee() {
         return busFee;
     }
-    
+
     public void setBusFee(int busFee) {
         this.busFee = busFee;
     }
@@ -42,7 +56,7 @@ public class FeeDetail {
     public int getHostelFee() {
         return hostelFee;
     }
-    
+
     public void setHostelFee(int hostelFee) {
         this.hostelFee = hostelFee;
     }
@@ -50,7 +64,7 @@ public class FeeDetail {
     public Student getStudent() {
         return student;
     }
-    
+
     public void setStudent(Student student) {
         this.student = student;
     }

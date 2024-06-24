@@ -19,8 +19,7 @@ import com.i2i.cms.model.Grade;
  * </p>
  */
 public class GradeDao {
-    private HibernateConnection hibernateConnection = HibernateConnection.getInstance();
-    private SessionFactory sessionFactory = hibernateConnection.getSessionFactory();
+    private SessionFactory sessionFactory = HibernateConnection.getSessionFactory();
     
     /**
      * <p>

@@ -1,5 +1,7 @@
 package com.i2i.cms.helper;
 
+import io.github.cdimascio.dotenv.Dotenv;
+
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
@@ -10,52 +12,24 @@ import org.hibernate.cfg.Configuration;
  * </p>
  */
 public class HibernateConnection {
-    private static HibernateConnection instance;
-    private SessionFactory sessionFactory;
-	
-    /**
-     * <p>
-     * Private constructor to prevent instantiation from other classes.
-     * </p>
-     */
-    private HibernateConnection() {
-        try {
-            sessionFactory = new Configuration().configure().buildSessionFactory();
-        } catch (Throwable t) {
-            throw new ExceptionInInitializerError(t);
-        }
+    private static SessionFactory sessionFactory;
+
+    static{
+            Dotenv dotenv = Dotenv.load();
+            Configuration configuration = new Configuration().configure();
+            configuration.setProperty("hibernate.connection.url", dotenv.get("URL"));
+            configuration.setProperty("hibernate.connection.username", dotenv.get("USER"));
+            configuration.setProperty("hibernate.connection.password", dotenv.get("PASSWORD"));
+            sessionFactory = configuration.buildSessionFactory();
     }
-	
-    /**
-     * <p>
-     * Retrieves the singleton instance of HibernateConnection.
-     * </p>
-     * @return the singleton instance
-     */
-    public static synchronized HibernateConnection getInstance() {
-        if (null == instance) {
-            instance = new HibernateConnection();
-        }
-        return instance;
-    }
-	
+
     /**
      * <p>
      * Retrieves the Hibernate SessionFactory instance.
      * </p>
      * @return SessionFactory instance.
      */
-    public SessionFactory getSessionFactory() {
+    public static SessionFactory getSessionFactory() {
         return sessionFactory;
-    }
-	
-    /**
-     * <p>
-     * Closes the Hibernate SessionFactory, releasing all resources.
-     * It should be called during application shutdown to clean up database connections.
-     * </p>
-     */
-    public static void shutDown() {
-        getInstance().getSessionFactory().close();
     }
 }
