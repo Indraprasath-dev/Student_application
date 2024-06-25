@@ -48,7 +48,7 @@ public class GradeService {
      * </p>
      * @param gradeId 
      *        The ID of the grade to retrieve.
-     * @return The Grade object containing the list of associated students.
+     * @return The Gradec object containing the list of associated students.
      * @throws StudentException 
      *         If there is an error while retrieving the grade.
      */
