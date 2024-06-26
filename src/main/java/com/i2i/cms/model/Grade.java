@@ -15,13 +15,13 @@ public class Grade {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "grade_id")
+    @Column(name = "grade_id", nullable = false)
     private int gradeId;
 
-    @Column(name = "standard")
+    @Column(name = "standard", nullable = false)
     private int standard;
 
-    @Column(name = "section")
+    @Column(name = "section", length = 5, nullable = false)
     private String section;
 
     @OneToMany(mappedBy = "grade", cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)

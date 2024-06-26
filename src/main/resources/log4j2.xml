@@ -3,14 +3,18 @@
         <Console name="Console">
             <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss:ms} %-5level %logger{36} - %msg%n"/>
         </Console>
-        <File name="File" fileName="c:/logs/StudentApplication.log" append="true">
+        <RollingFile name="RollingFile" fileName="c:/logs/StudentApplication.log" filePattern="cms_log-%d{yyyy-MM-dd}.log.gz">
             <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss:ms} %-5level %logger{36} - %msg%n"/>
-        </File>
+            <Policies>
+                <TimeBasedTriggeringPolicy interval="1" modulate="true"/>
+            </Policies>
+            <DefaultRolloverStrategy max="5"/>
+        </RollingFile>
     </Appenders>
     <Loggers>
         <Root level="info">
             <AppenderRef ref="Console"/>
-            <AppenderRef ref="File"/>
+            <AppenderRef ref="RollingFile"/>
         </Root>
     </Loggers>
 </Configuration>

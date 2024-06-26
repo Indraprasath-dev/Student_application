@@ -14,13 +14,13 @@ public class Sport {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "sport_id")
+    @Column(name = "sport_id", nullable = false)
     private int sportId;
 
-    @Column(name = "sport_name")
+    @Column(name = "sport_name", length = 20, nullable = false)
     private String sportName;
 
-    @Column(name = "coach")
+    @Column(name = "coach", length = 30, nullable = false)
     private String coach;
 
     @ManyToMany(mappedBy = "sports")

@@ -15,13 +15,13 @@ import java.util.Set;
 public class Student {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
+    @Column(name = "id", nullable = false)
     private int id;
 
-    @Column(name = "name")
+    @Column(name = "name", length = 30, nullable = false)
     private String name;
 
-    @Column(name = "dob")
+    @Column(name = "dob", length = 10, nullable = false)
     private Date dob;
 
     @OneToOne(mappedBy = "student", cascade = CascadeType.ALL)

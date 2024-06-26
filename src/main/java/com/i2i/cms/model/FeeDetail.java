@@ -13,20 +13,20 @@ import javax.persistence.*;
 public class FeeDetail {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "fee_id")
+    @Column(name = "fee_id", nullable = false)
     private int feeId;
 
-    @Column(name = "tuition_fee")
+    @Column(name = "tuition_fee", nullable = false)
     private int tuitionFee;
 
-    @Column(name = "bus_fee")
+    @Column(name = "bus_fee", nullable = false)
     private int busFee;
 
-    @Column(name = "hostel_fee")
+    @Column(name = "hostel_fee", nullable = false)
     private int hostelFee;
 
     @OneToOne
-    @JoinColumn(name = "student_id")
+    @JoinColumn(name = "student_id", nullable = false)
     private Student student;
 
     public int getFeeId() {
