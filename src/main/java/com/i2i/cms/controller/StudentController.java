@@ -28,10 +28,10 @@ public class StudentController {
     private static Scanner scanner = new Scanner(System.in);
     private StudentService studentService = new StudentService();
     private SportService sportService = new SportService();
-
+ 
     /** 
      * <p>
-     * Adds a new student record. 
+     * Adds a new student record.
      * This method collects the student's name, date of birth, class, section,
      * tuition fee, optional bus fee, hostel fee, and selected sports from the user,
      * and then creates a new student record.
