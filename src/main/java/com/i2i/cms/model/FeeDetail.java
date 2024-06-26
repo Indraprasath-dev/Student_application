@@ -33,7 +33,7 @@ public class FeeDetail {
     private int hostelFee;
 
     @OneToOne
-    @JoinColumn(name = "student_id", nullable = false)
+    @JoinColumn(name = "student_id")
     private Student student;
 
     public int getFeeId() {
