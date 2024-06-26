@@ -8,7 +8,7 @@
             <Policies>
                 <TimeBasedTriggeringPolicy interval="1" modulate="true"/>
             </Policies>
-            <DefaultRolloverStrategy max="5"/>
+            <DefaultRolloverStrategy max="7"/>
         </RollingFile>
     </Appenders>
     <Loggers>

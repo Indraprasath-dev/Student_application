@@ -33,7 +33,7 @@ public class SportService {
      *         If there is any error during the insertion process.
      */
     public Sport addSport(String sportName, String coach) throws StudentException {
-        logger.info("Processing Adding new sport - Sport Name: {}, Coach: {}", sportName, coach);
+        logger.debug("Processing Adding new sport - Sport Name: {}, Coach: {}", sportName, coach);
         Sport sport = new Sport();
         sport.setSportName(sportName);
         sport.setCoach(coach);
@@ -51,7 +51,7 @@ public class SportService {
      *         If there is any error during the retrieval process.
      */
     public Set<Sport> retrieveSports(List<Integer> selectedSports) throws StudentException {
-        logger.info("Retrieving Sports with selected sport IDs: {}", selectedSports);
+        logger.debug("Retrieving Sports with selected sport IDs: {}", selectedSports);
         return sportDao.retrieveSports(selectedSports);
     }
 }

@@ -44,7 +44,7 @@ public class StudentDao {
             if (null != transaction) {
                 transaction.rollback();
             }
-            logger.error("Error occurred while adding student: {}", e);
+            logger.error("Error occurred while adding student ", e);
 			throw new StudentException("Error occurred while adding student " + student.getName(), e);
         }
     }

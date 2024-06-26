@@ -95,7 +95,7 @@ public class StudentService {
      *         If an error occurs while finding the student.
      */
     public Student findStudentById(int studentId) throws StudentException {
-        logger.info("Finding student with ID: {}", studentId);
+        logger.debug("Finding student with ID: {}", studentId);
         return studentDao.findStudentById(studentId);
     }
     
@@ -112,7 +112,7 @@ public class StudentService {
      *         If an error occurs while updating the student's name.
      */
     public Student updateStudentNameById(int studentId, String newName) throws StudentException {
-        logger.info("Updating student name: studentId={}, newName={}", studentId, newName);
+        logger.debug("Updating student name: studentId={}, newName={}", studentId, newName);
         Student student = studentDao.findStudentById(studentId);
         if (null == student) {
             logger.warn("Student with ID {} not found.", studentId);
@@ -133,7 +133,7 @@ public class StudentService {
      *         If an error occurs while removing the student.
      */
     public boolean removeStudent(int studentId) throws StudentException {
-        logger.info("Removing student with ID: {}", studentId);
+        logger.debug("Removing student with ID: {}", studentId);
         return studentDao.deleteStudentById(studentId);
     }
 }

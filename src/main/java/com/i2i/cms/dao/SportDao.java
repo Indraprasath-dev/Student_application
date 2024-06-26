@@ -39,14 +39,14 @@ public class SportDao {
         try (Session session = sessionFactory.openSession()) {
             transaction = session.beginTransaction();
             session.save(sport);
-            logger.debug("Successfully inserted sport detail: {}", sport);
             transaction.commit();
-	    return sport;
+            logger.debug("Successfully inserted sport detail: {}", sport);
+	        return sport;
         } catch (Exception e) {
             if (null != transaction) {
                 transaction.rollback();
             }
-            logger.error("Error occurred while adding sport {}", e);
+            logger.error("Error occurred while adding sport", e);
             throw new StudentException("Error occurred while adding sport " + sport.getSportId(), e);
         }
     }
@@ -72,7 +72,7 @@ public class SportDao {
             }
             return sports;
         } catch (Exception e) {
-            logger.error("Error occurred while retrieving sports: ", e);
+            logger.error("Error occurred while retrieving sports ", e);
             throw new StudentException("Error occurred while retrieving sport", e);
         }
     }

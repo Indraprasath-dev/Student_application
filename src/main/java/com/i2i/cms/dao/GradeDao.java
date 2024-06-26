@@ -1,7 +1,5 @@
 package com.i2i.cms.dao;
 
-import java.util.List;
-
 import org.hibernate.query.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -39,12 +37,11 @@ public class GradeDao {
             transaction = session.beginTransaction();
             session.save(grade);
             transaction.commit();
-            logger.debug("Successfully added grade detail: {}", grade);
         } catch (Exception e) {
             if (null != transaction) {
                 transaction.rollback();
             }
-            logger.error("Error occurred while adding grade: {}", e);
+            logger.error("Error occurred while adding grade", e);
             throw new StudentException("Error occurred while adding grade: " + grade.getStandard(), e);
         } 
     }
@@ -67,10 +64,9 @@ public class GradeDao {
             query.setParameter("standard", standard);
             query.setParameter("section", section);
             grade = query.uniqueResult();
-            logger.debug("Successfully found grade: {}", grade);
-            return grade; 
+            return grade;
         } catch (Exception e) {
-            logger.error("Unable to retrieve grade detail: {}", e);
+            logger.error("Unable to retrieve grade detail", e);
             throw new StudentException("Unable to retrieve grade detail for standard " + standard + " and section " + section, e);
         } 	
     }
@@ -91,7 +87,7 @@ public class GradeDao {
             logger.debug("Successfully retrieved grade: {}", grade);
             return grade;
         } catch (Exception e) {
-            logger.error("Unable to retrieve grade: {}", e);
+            logger.error("Unable to retrieve grade", e);
             throw new StudentException("Unable to retrieve grade with ID: " + gradeId, e);
         }
     }

@@ -33,7 +33,7 @@ public class GradeService {
      *         If there is an error while adding the grade.
      */
     public Grade addGradeId(int standard, String section) throws StudentException {
-        logger.info("Starting addGradeId process with Standard: {}, Section: {}", standard, section);
+        logger.debug("Starting addGradeId process with Standard: {}, Section: {}", standard, section);
         Grade grade = gradeDao.findGradeByStandardAndSection(standard, section);
         if (null == grade) {
             logger.debug("Grade ID not found for Standard: {}, Section: {}. Creating new Grade ID.", standard, section);
@@ -41,9 +41,8 @@ public class GradeService {
             grade.setStandard(standard);
             grade.setSection(section);
             gradeDao.addGradeDetail(grade);
-            logger.info("New Grade created with Standard: {}, Section: {}", standard, section);
         }
-        logger.info("Finished addGradeId process for Grade ID: {}",grade.getGradeId());
+        logger.debug("Finished addGradeId process for Grade ID: {}",grade.getGradeId());
         return grade;
     }
     
@@ -58,7 +57,7 @@ public class GradeService {
      *         If there is an error while retrieving the grade.
      */
     public Grade findStudentsByGradeId(int gradeId) throws StudentException {
-        logger.info("Retrieving findStudentsByGradeId with Grade ID: {}", gradeId);
+        logger.debug("Retrieving findStudentsByGradeId with Grade ID: {}", gradeId);
         return gradeDao.retrieveStudentsByGradeId(gradeId);
     }
 }
