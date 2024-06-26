@@ -24,7 +24,7 @@ import com.i2i.cms.util.StringUtil;
  * </p>
  */
 public class StudentController {
-    private static final Logger logger = LoggerFactory.getLogger(GradeController.class);
+    private static final Logger logger = LoggerFactory.getLogger(StudentController.class);
     private static Scanner scanner = new Scanner(System.in);
     private StudentService studentService = new StudentService();
     private SportService sportService = new SportService();
@@ -126,7 +126,7 @@ public class StudentController {
         }
         logger.debug("Received input - Selected Sports: {}", selectedSports);
         try {
-            Student student = studentService.addStudentWithFeeDetail(name, dateOfBirth, tuitionFee,
+            Student student = studentService.addStudent(name, dateOfBirth, tuitionFee,
                     busFee, hostelFee, standard, section, selectedSports);
             if (null != student) {
                 System.out.println("\nStudent added successfully! ID: " + student.getId()

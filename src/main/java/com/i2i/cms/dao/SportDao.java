@@ -3,10 +3,13 @@ package com.i2i.cms.dao;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.i2i.cms.customexception.StudentException;
 import com.i2i.cms.helper.HibernateConnection;
@@ -20,6 +23,7 @@ import com.i2i.cms.model.Sport;
  * </p>
  */
 public class SportDao {
+    private static final Logger logger = LoggerFactory.getLogger(SportDao.class);
     private SessionFactory sessionFactory = HibernateConnection.getSessionFactory();
 	
     /**
@@ -31,15 +35,18 @@ public class SportDao {
      */
     public Sport insertSportDetail(Sport sport) throws StudentException {
         Transaction transaction = null;
+        logger.debug("Attempting to insert sport detail: {}", sport);
         try (Session session = sessionFactory.openSession()) {
             transaction = session.beginTransaction();
             session.save(sport);
+            logger.debug("Successfully inserted sport detail: {}", sport);
             transaction.commit();
 	    return sport;
         } catch (Exception e) {
             if (null != transaction) {
                 transaction.rollback();
             }
+            logger.error("Error occurred while adding sport {}", e);
             throw new StudentException("Error occurred while adding sport " + sport.getSportId(), e);
         }
     }
@@ -54,15 +61,18 @@ public class SportDao {
      */
     public Set<Sport> retrieveSports(List<Integer> sportPreference) throws StudentException {
         Set<Sport> sports = new HashSet<>();
+        logger.debug("Attempting to retrieve sports with preferences: {}", sportPreference);
         try (Session session = sessionFactory.openSession()) {
             if (null != sportPreference) {
                 Query<Sport> query = session.createQuery(
                     "SELECT s FROM Sport s WHERE s.sportId IN :preferenceList", Sport.class);
                 query.setParameter("preferenceList", sportPreference);
                 sports.addAll(query.getResultList());
+                logger.debug("Successfully retrieved sports: {}", sports);
             }
             return sports;
         } catch (Exception e) {
+            logger.error("Error occurred while retrieving sports: ", e);
             throw new StudentException("Error occurred while retrieving sport", e);
         }
     }

@@ -3,6 +3,9 @@ package com.i2i.cms.service;
 import java.util.List;
 import java.util.Set;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.i2i.cms.customexception.StudentException;
 import com.i2i.cms.dao.SportDao;
 import com.i2i.cms.model.Sport;
@@ -15,6 +18,7 @@ import com.i2i.cms.model.Sport;
  * </p>
  */
 public class SportService {
+    private static final Logger logger = LoggerFactory.getLogger(SportService.class);
     private SportDao sportDao = new SportDao();
     
     /**
@@ -29,6 +33,7 @@ public class SportService {
      *         If there is any error during the insertion process.
      */
     public Sport addSport(String sportName, String coach) throws StudentException {
+        logger.info("Processing Adding new sport - Sport Name: {}, Coach: {}", sportName, coach);
         Sport sport = new Sport();
         sport.setSportName(sportName);
         sport.setCoach(coach);
@@ -46,7 +51,7 @@ public class SportService {
      *         If there is any error during the retrieval process.
      */
     public Set<Sport> retrieveSports(List<Integer> selectedSports) throws StudentException {
+        logger.info("Retrieving Sports with selected sport IDs: {}", selectedSports);
         return sportDao.retrieveSports(selectedSports);
     }
-
 }

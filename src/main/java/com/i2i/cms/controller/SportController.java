@@ -16,7 +16,7 @@ import com.i2i.cms.service.SportService;
  * </p>
  */
 public class SportController {
-    private static final Logger logger = LoggerFactory.getLogger(GradeController.class);
+    private static final Logger logger = LoggerFactory.getLogger(SportController.class);
     private static Scanner scanner = new Scanner(System.in);
     private SportService sportService = new SportService();
     

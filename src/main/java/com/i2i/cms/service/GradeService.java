@@ -1,7 +1,7 @@
 package com.i2i.cms.service;
 
-import java.util.ArrayList;
-import java.util.List;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.i2i.cms.customexception.StudentException;
 import com.i2i.cms.dao.GradeDao;
@@ -15,6 +15,7 @@ import com.i2i.cms.model.Grade;
  * </p>
  */
 public class GradeService {
+    private static final Logger logger = LoggerFactory.getLogger(GradeService.class);
     private GradeDao gradeDao = new GradeDao();
     
     /**
@@ -32,13 +33,17 @@ public class GradeService {
      *         If there is an error while adding the grade.
      */
     public Grade addGradeId(int standard, String section) throws StudentException {
+        logger.info("Starting addGradeId process with Standard: {}, Section: {}", standard, section);
         Grade grade = gradeDao.findGradeByStandardAndSection(standard, section);
         if (null == grade) {
+            logger.debug("Grade ID not found for Standard: {}, Section: {}. Creating new Grade ID.", standard, section);
             grade = new Grade();
             grade.setStandard(standard);
             grade.setSection(section);
             gradeDao.addGradeDetail(grade);
+            logger.info("New Grade created with Standard: {}, Section: {}", standard, section);
         }
+        logger.info("Finished addGradeId process for Grade ID: {}",grade.getGradeId());
         return grade;
     }
     
@@ -48,11 +53,12 @@ public class GradeService {
      * </p>
      * @param gradeId 
      *        The ID of the grade to retrieve.
-     * @return The Gradec object containing the list of associated students.
+     * @return The Grade object containing the list of associated students.
      * @throws StudentException 
      *         If there is an error while retrieving the grade.
      */
     public Grade findStudentsByGradeId(int gradeId) throws StudentException {
+        logger.info("Retrieving findStudentsByGradeId with Grade ID: {}", gradeId);
         return gradeDao.retrieveStudentsByGradeId(gradeId);
     }
 }

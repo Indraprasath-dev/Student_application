@@ -4,6 +4,9 @@ import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.i2i.cms.customexception.StudentException;
 import com.i2i.cms.dao.StudentDao;
 import com.i2i.cms.model.Grade;
@@ -20,6 +23,7 @@ import com.i2i.cms.service.GradeService;
  * </p>
  */
 public class StudentService {
+    private static final Logger logger = LoggerFactory.getLogger(StudentService.class);
     private StudentDao studentDao = new StudentDao();
     private GradeService gradeService = new GradeService();
     private SportService sportService = new SportService();
@@ -48,8 +52,9 @@ public class StudentService {
      * @throws StudentException
      *         If an error occurs while adding the student.
      */
-    public Student addStudentWithFeeDetail(String name, Date dob, int tuitionFee, int busFee
+    public Student addStudent(String name, Date dob, int tuitionFee, int busFee
                             , int hostelFee , int standard, String section, List<Integer> selectedSports) throws StudentException {
+        logger.info("Adding new student detail");
         Student student = new Student();
         student.setName(name);
         student.setDob(dob);
@@ -75,6 +80,7 @@ public class StudentService {
      *         If an error occurs while retrieving the students.
      */
     public List<Student> getAllStudents() throws StudentException {
+        logger.info("Retrieving all students.");
         return studentDao.getAllStudents();
     }
     
@@ -89,6 +95,7 @@ public class StudentService {
      *         If an error occurs while finding the student.
      */
     public Student findStudentById(int studentId) throws StudentException {
+        logger.info("Finding student with ID: {}", studentId);
         return studentDao.findStudentById(studentId);
     }
     
@@ -105,8 +112,10 @@ public class StudentService {
      *         If an error occurs while updating the student's name.
      */
     public Student updateStudentNameById(int studentId, String newName) throws StudentException {
+        logger.info("Updating student name: studentId={}, newName={}", studentId, newName);
         Student student = studentDao.findStudentById(studentId);
         if (null == student) {
+            logger.warn("Student with ID {} not found.", studentId);
             return null;
         }
         student.setName(newName);
@@ -124,6 +133,7 @@ public class StudentService {
      *         If an error occurs while removing the student.
      */
     public boolean removeStudent(int studentId) throws StudentException {
+        logger.info("Removing student with ID: {}", studentId);
         return studentDao.deleteStudentById(studentId);
     }
 }

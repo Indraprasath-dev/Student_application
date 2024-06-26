@@ -1,10 +1,13 @@
 package com.i2i.cms.dao;
 
 import java.util.List;
+
 import org.hibernate.query.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.i2i.cms.customexception.StudentException;
 import com.i2i.cms.helper.HibernateConnection;
@@ -19,6 +22,7 @@ import com.i2i.cms.model.Grade;
  * </p>
  */
 public class GradeDao {
+    private static final Logger logger = LoggerFactory.getLogger(GradeDao.class);
     private SessionFactory sessionFactory = HibernateConnection.getSessionFactory();
     
     /**
@@ -30,14 +34,17 @@ public class GradeDao {
      */
     public void addGradeDetail(Grade grade) throws StudentException {
         Transaction transaction = null;
+        logger.debug("Attempting to add grade detail: {}", grade);
         try (Session session = sessionFactory.openSession()) {
             transaction = session.beginTransaction();
             session.save(grade);
             transaction.commit();
+            logger.debug("Successfully added grade detail: {}", grade);
         } catch (Exception e) {
             if (null != transaction) {
                 transaction.rollback();
             }
+            logger.error("Error occurred while adding grade: {}", e);
             throw new StudentException("Error occurred while adding grade: " + grade.getStandard(), e);
         } 
     }
@@ -54,13 +61,16 @@ public class GradeDao {
      */
     public Grade findGradeByStandardAndSection(int standard, String section) throws StudentException {
         Grade grade = null;
+        logger.debug("Attempting to find grade by standard: {} and section: {}", standard, section);
         try (Session session = sessionFactory.openSession()) {
             Query<Grade> query = session.createQuery("FROM Grade WHERE standard = :standard AND section = :section", Grade.class);
             query.setParameter("standard", standard);
             query.setParameter("section", section);
             grade = query.uniqueResult();
+            logger.debug("Successfully found grade: {}", grade);
             return grade; 
         } catch (Exception e) {
+            logger.error("Unable to retrieve grade detail: {}", e);
             throw new StudentException("Unable to retrieve grade detail for standard " + standard + " and section " + section, e);
         } 	
     }
@@ -75,10 +85,13 @@ public class GradeDao {
      */
     public Grade retrieveStudentsByGradeId(int gradeId) throws StudentException {
         Grade grade = null;
+        logger.debug("Attempting to retrieve students by grade ID: {}", gradeId);
         try (Session session = sessionFactory.openSession()) {
             grade = session.get(Grade.class, gradeId);
+            logger.debug("Successfully retrieved grade: {}", grade);
             return grade;
         } catch (Exception e) {
+            logger.error("Unable to retrieve grade: {}", e);
             throw new StudentException("Unable to retrieve grade with ID: " + gradeId, e);
         }
     }
