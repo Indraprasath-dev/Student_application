@@ -14,6 +14,8 @@ import com.i2i.cms.model.Sport;
 import com.i2i.cms.model.Student;
 import com.i2i.cms.model.FeeDetail;
 import com.i2i.cms.service.GradeService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 /**
  * <p>
@@ -22,11 +24,15 @@ import com.i2i.cms.service.GradeService;
  * add new students and remove students.
  * </p>
  */
+@Service
 public class StudentService {
     private static final Logger logger = LoggerFactory.getLogger(StudentService.class);
-    private StudentDao studentDao = new StudentDao();
-    private GradeService gradeService = new GradeService();
-    private SportService sportService = new SportService();
+    @Autowired
+    private StudentDao studentDao;
+    @Autowired
+    private GradeService gradeService;
+    @Autowired
+    private SportService sportService;
     
     /**
      * <p>

@@ -9,6 +9,8 @@ import org.slf4j.LoggerFactory;
 import com.i2i.cms.customexception.StudentException;
 import com.i2i.cms.dao.SportDao;
 import com.i2i.cms.model.Sport;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 /**
  * <p>
@@ -17,9 +19,11 @@ import com.i2i.cms.model.Sport;
  * their sports activities.
  * </p>
  */
+@Service
 public class SportService {
     private static final Logger logger = LoggerFactory.getLogger(SportService.class);
-    private SportDao sportDao = new SportDao();
+    @Autowired
+    private SportDao sportDao;
     
     /**
      * <p>

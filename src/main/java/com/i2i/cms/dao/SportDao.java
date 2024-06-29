@@ -14,6 +14,7 @@ import org.slf4j.LoggerFactory;
 import com.i2i.cms.customexception.StudentException;
 import com.i2i.cms.helper.HibernateConnection;
 import com.i2i.cms.model.Sport;
+import org.springframework.stereotype.Repository;
 
 /**
  * <p>
@@ -22,6 +23,7 @@ import com.i2i.cms.model.Sport;
  * links students to their respective sports activities.
  * </p>
  */
+@Repository
 public class SportDao {
     private static final Logger logger = LoggerFactory.getLogger(SportDao.class);
     private SessionFactory sessionFactory = HibernateConnection.getSessionFactory();

@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 import com.i2i.cms.customexception.StudentException;
 import com.i2i.cms.helper.HibernateConnection;
 import com.i2i.cms.model.Grade;
+import org.springframework.stereotype.Repository;
 
 /**
  * <p>
@@ -19,6 +20,7 @@ import com.i2i.cms.model.Grade;
  * standard and section combinations, and retrieve grades along with their associated students.
  * </p>
  */
+@Repository
 public class GradeDao {
     private static final Logger logger = LoggerFactory.getLogger(GradeDao.class);
     private SessionFactory sessionFactory = HibernateConnection.getSessionFactory();

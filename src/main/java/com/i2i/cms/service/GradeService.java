@@ -6,6 +6,8 @@ import org.slf4j.LoggerFactory;
 import com.i2i.cms.customexception.StudentException;
 import com.i2i.cms.dao.GradeDao;
 import com.i2i.cms.model.Grade;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 /**
  * <p>
@@ -14,9 +16,11 @@ import com.i2i.cms.model.Grade;
  * their associated students.
  * </p>
  */
+@Service
 public class GradeService {
     private static final Logger logger = LoggerFactory.getLogger(GradeService.class);
-    private GradeDao gradeDao = new GradeDao();
+    @Autowired
+    private GradeDao gradeDao;
     
     /**
      * <p>

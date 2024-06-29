@@ -8,6 +8,8 @@ import org.slf4j.LoggerFactory;
 import com.i2i.cms.customexception.StudentException;
 import com.i2i.cms.model.Sport;
 import com.i2i.cms.service.SportService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
  * <p>
@@ -15,10 +17,12 @@ import com.i2i.cms.service.SportService;
  * It provides functionality to add a new sport record.
  * </p>
  */
+@RestController
 public class SportController {
     private static final Logger logger = LoggerFactory.getLogger(SportController.class);
     private static Scanner scanner = new Scanner(System.in);
-    private SportService sportService = new SportService();
+    @Autowired
+    private SportService sportService;
     
     /**
      * <p>

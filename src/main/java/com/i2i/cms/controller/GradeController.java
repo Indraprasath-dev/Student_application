@@ -9,6 +9,8 @@ import com.i2i.cms.customexception.StudentException;
 import com.i2i.cms.model.Grade;
 import com.i2i.cms.model.Student;
 import com.i2i.cms.service.GradeService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
  * <p>
@@ -16,10 +18,12 @@ import com.i2i.cms.service.GradeService;
  * It provides functionality to add a new grade and search for students by grade ID.
  * </p>
  */
+@RestController
 public class GradeController {
     private static final Logger logger = LoggerFactory.getLogger(GradeController.class);
     private static Scanner scanner = new Scanner(System.in);
-    private GradeService gradeService = new GradeService();
+    @Autowired
+    private GradeService gradeService;
     
     /**
      * <p>

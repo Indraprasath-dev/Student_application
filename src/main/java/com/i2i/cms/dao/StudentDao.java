@@ -11,6 +11,7 @@ import org.slf4j.LoggerFactory;
 import com.i2i.cms.customexception.StudentException;
 import com.i2i.cms.helper.HibernateConnection;
 import com.i2i.cms.model.Student;
+import org.springframework.stereotype.Repository;
 
 /**
  * <p>
@@ -19,6 +20,7 @@ import com.i2i.cms.model.Student;
  * updating student details, finding students by their ID, and deleting students from the database.
  * </p>
  */
+@Repository
 public class StudentDao {
     private static final Logger logger = LoggerFactory.getLogger(StudentDao.class);
     private SessionFactory sessionFactory = HibernateConnection.getSessionFactory();

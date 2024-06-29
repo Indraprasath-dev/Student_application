@@ -10,10 +10,11 @@ import org.slf4j.LoggerFactory;
 
 import com.i2i.cms.customexception.StudentException;
 import com.i2i.cms.model.Student;
-import com.i2i.cms.service.SportService;
 import com.i2i.cms.service.StudentService;
 import com.i2i.cms.util.DateUtil;
 import com.i2i.cms.util.StringUtil;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
  * <p> 
@@ -23,11 +24,12 @@ import com.i2i.cms.util.StringUtil;
  * standard and section.
  * </p>
  */
+@RestController
 public class StudentController {
     private static final Logger logger = LoggerFactory.getLogger(StudentController.class);
     private static Scanner scanner = new Scanner(System.in);
-    private StudentService studentService = new StudentService();
-    private SportService sportService = new SportService();
+    @Autowired
+    private StudentService studentService;
  
     /** 
      * <p>
