@@ -80,8 +80,8 @@ public class GradeService {
             Set<Student> students = grade.getStudents();
             logger.debug("Found students for grade ID {}", gradeId);
             return students.stream()
-                    .map(this::mapToStudentDto)
-                    .collect(Collectors.toList());
+                   .map(this::mapToStudentDto)
+                   .collect(Collectors.toList());
         } catch (Exception e) {
             logger.error("Error retrieving students for grade ID {}", gradeId, e);
             throw new StudentException("Error retrieving students for grade ID " + gradeId, e);
@@ -101,7 +101,7 @@ public class GradeService {
         studentDto.setName(student.getName());
         studentDto.setDob(student.getDob());
         Grade grade = student.getGrade();
-        if (null == grade) {
+        if (null != grade) {
             CreateGradeDto gradeDto = new CreateGradeDto();
             gradeDto.setStandard(grade.getStandard());
             gradeDto.setSection(grade.getSection());

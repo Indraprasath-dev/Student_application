@@ -16,7 +16,6 @@ import com.i2i.cms.dto.SportDto;
 import com.i2i.cms.model.Sport;
 import com.i2i.cms.repository.SportRepository;
 
-
 /**
  * <p>
  * The SportService class provides services related to sports.
