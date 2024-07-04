@@ -1,13 +1,6 @@
 package com.i2i.cms.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToOne;
-import javax.persistence.JoinColumn;
-import javax.persistence.Table;
+import jakarta.persistence.*;
 
 /**
  * <p>
@@ -16,7 +9,7 @@ import javax.persistence.Table;
  * </p>
  */
 @Entity
-@Table(name = "fee_detail")
+@Table(name = "fee_details")
 public class FeeDetail {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -85,8 +78,8 @@ public class FeeDetail {
     public String toString() {
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("\nTuitionFee : ").append(tuitionFee)
-                     .append(", BusFee : ").append(busFee)
-                     .append(", HostelFee : ").append(hostelFee);
+                .append(", BusFee : ").append(busFee)
+                .append(", HostelFee : ").append(hostelFee);
         return stringBuilder.toString();
     }
 }

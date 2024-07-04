@@ -1,51 +1,46 @@
 package com.i2i.cms.controller;
 
-import java.util.Scanner;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.i2i.cms.customexception.StudentException;
-import com.i2i.cms.model.Sport;
-import com.i2i.cms.service.SportService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import com.i2i.cms.customexception.StudentException;
+import com.i2i.cms.dto.SportDto;
+import com.i2i.cms.service.SportService;
 
 /**
  * <p>
- * This class is responsible for managing sport records.
- * It provides functionality to add a new sport record.
+ * Controller class for handling sports-related operations for students.
  * </p>
  */
 @RestController
+@RequestMapping("/cms/api/v1/students")
 public class SportController {
-    private static final Logger logger = LoggerFactory.getLogger(SportController.class);
-    private static Scanner scanner = new Scanner(System.in);
     @Autowired
     private SportService sportService;
-    
+    private static final Logger logger = LoggerFactory.getLogger(SportController.class);
+
     /**
      * <p>
-     * Adds a new sport record.
-     * This method collects the sport name, and coach name from the user,
-     * and then creates a new sport record.
+     * POST endpoint to add a new sport.
      * </p>
+     * @param sportDto The SportDto object containing sport details to be added.
+     * @return the HTTP response after adding a sport.
      */
-    public void addSport() {
-        logger.info("Starting addSport process");
-        System.out.print("Enter the Sport Name: ");
-        String sportName = scanner.nextLine();
-        System.out.print("Enter the Coach Name: ");
-        String coach = scanner.nextLine();
-        logger.debug("Received input - Sport Name: {}, Coach Name: {}", sportName, coach);
+    @PostMapping("/add-sports")
+    public ResponseEntity<?> addSport(@RequestBody SportDto sportDto) {
         try {
-            Sport sport = sportService.addSport(sportName, coach);
-            System.out.println("Sport added successfully with sport ID : " + sport.getSportId());
-            logger.info("Sport added successfully with sport ID : {}", sport.getSportId());
-        } catch(StudentException e) {
-            System.out.println("Error occurred while adding sport : " + e.getMessage());
-            logger.error("Error occurred while adding sport : {}", e.getMessage());
+            logger.info("Adding sport");
+            SportDto createdSport = sportService.addSport(sportDto);
+            logger.info("Successfully added sport: {}", createdSport.getSportId());
+            return ResponseEntity.status(HttpStatus.CREATED).body(createdSport);
+        } catch (StudentException e) {
+            logger.error("Error adding sport", e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
         }
-        logger.info("Finished addSport process");
     }
 }

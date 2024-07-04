@@ -1,16 +1,9 @@
 package com.i2i.cms.model;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-
+import jakarta.persistence.*;
 import java.util.Set;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 /**
  * <p>
@@ -33,7 +26,8 @@ public class Grade {
     @Column(name = "section", length = 5, nullable = false)
     private String section;
 
-    @OneToMany(mappedBy = "grade", cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "grade", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JsonBackReference
     private Set<Student> students;
 
     public void setGradeId(int gradeId) {
@@ -77,8 +71,8 @@ public class Grade {
     public String toString() {
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("\nGrade id : ").append(gradeId)
-                     .append("\nStudent Standard : ").append(standard)
-                     .append("\nStudent Section : ").append(section);
+                .append("\nStudent Standard : ").append(standard)
+                .append("\nStudent Section : ").append(section);
         return stringBuilder.toString();
     }
 }

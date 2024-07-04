@@ -2,60 +2,83 @@ package com.i2i.cms.service;
 
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.i2i.cms.customexception.StudentException;
-import com.i2i.cms.dao.SportDao;
-import com.i2i.cms.model.Sport;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.i2i.cms.controller.SportController;
+import com.i2i.cms.customexception.StudentException;
+import com.i2i.cms.dto.SportDto;
+import com.i2i.cms.model.Sport;
+import com.i2i.cms.repository.SportRepository;
+
+
 /**
  * <p>
- * The SportService class provides services related to sports enrollments for students.
- * It interacts with the SportDao to manage the relationship between students and 
- * their sports activities.
+ * The SportService class provides services related to sports.
  * </p>
  */
 @Service
 public class SportService {
-    private static final Logger logger = LoggerFactory.getLogger(SportService.class);
     @Autowired
-    private SportDao sportDao;
-    
+    private SportRepository sportRepository;
+    private static final Logger logger = LoggerFactory.getLogger(SportController.class);
+
     /**
      * <p>
-     * Adds a new sport record.
+     * Adds a new sport using the details from the provided SportDto object.
      * </p>
-     * @param sportName 
-     *        The name of the sport to be added.
-     * @param coach 
-     *        The name of the coach for the sport.
-     * @throws StudentException 
-     *         If there is any error during the insertion process.
+     * @param sportDto The SportDto object containing details of the sport to be added.
+     * @return The SportDto object representing the added sport.
+     * @throws StudentException If an error occurs while adding the sport.
      */
-    public Sport addSport(String sportName, String coach) throws StudentException {
-        logger.debug("Processing Adding new sport - Sport Name: {}, Coach: {}", sportName, coach);
-        Sport sport = new Sport();
-        sport.setSportName(sportName);
-        sport.setCoach(coach);
-        return sportDao.insertSportDetail(sport);
+    public SportDto addSport(SportDto sportDto) throws StudentException {
+        try {
+            logger.debug("Adding sport: {}", sportDto.getSportName());
+            Sport sport = new Sport();
+            sport.setSportName(sportDto.getSportName());
+            sport.setCoach(sportDto.getCoach());
+            Sport savedSport = sportRepository.save(sport);
+            logger.debug("Sport added successfully: {}", savedSport.getSportName());
+            return mapToSportDto(savedSport);
+        } catch (Exception e) {
+            logger.error("Error adding sport: " + sportDto.getSportName(), e);
+            throw new StudentException("Error adding sport" +sportDto.getSportName(), e);
+        }
     }
-    
+
     /**
      * <p>
-     * Retrieves sports based on a list of selected sport IDs.
+     * Retrieves a set of sports based on the list of selected sport IDs.
      * </p>
-     * @param selectedSports 
-     *        A list of sport IDs representing the sports to retrieve.
-     * @return A set of Sport objects that match the selected sport IDs.
-     * @throws StudentException 
-     *         If there is any error during the retrieval process.
+     * @param selectedSports A list of sport IDs representing the selected sports.
+     * @return A set of Sport objects matching the selected sport IDs.
+     * @throws StudentException If an error occurs while retrieving the sports.
      */
     public Set<Sport> retrieveSports(List<Integer> selectedSports) throws StudentException {
-        logger.debug("Retrieving Sports with selected sport IDs: {}", selectedSports);
-        return sportDao.retrieveSports(selectedSports);
+        try {
+            return sportRepository.findAllById(selectedSports).stream().collect(Collectors.toSet());
+        } catch (Exception e) {
+            throw new StudentException("Error retrieving sports", e);
+        }
+    }
+
+    /**
+     * <p>
+     * Maps a Sport entity to a SportDto object.
+     * </p>
+     * @param sport The Sport entity to be mapped.
+     * @return The SportDto object containing mapped attributes from the Sport entity.
+     */
+    private SportDto mapToSportDto(Sport sport) {
+        SportDto sportDto = new SportDto();
+        sportDto.setSportId(sport.getSportId());
+        sportDto.setSportName(sport.getSportName());
+        sportDto.setCoach(sport.getCoach());
+        return sportDto;
     }
 }

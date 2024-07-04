@@ -1,13 +1,6 @@
 package com.i2i.cms.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToMany;
-import javax.persistence.Table;
-
+import jakarta.persistence.*;
 import java.util.Set;
 
 /**
@@ -16,7 +9,7 @@ import java.util.Set;
  * </p>
  */
 @Entity
-@Table(name = "sport")
+@Table(name = "sports")
 public class Sport {
 
     @Id
@@ -74,9 +67,9 @@ public class Sport {
     public String toString() {
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("Sport Id = ").append(sportId)
-                     .append(", SportName = '").append(sportName)
-                     .append("', Coach = '").append(coach)
-                     .append("' ");
+                .append(", SportName = '").append(sportName)
+                .append("', Coach = '").append(coach)
+                .append("' ");
         return stringBuilder.toString();
     }
 }

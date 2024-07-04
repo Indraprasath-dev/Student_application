@@ -1,21 +1,10 @@
 package com.i2i.cms.model;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
-
+import jakarta.persistence.*;
 import java.util.Date;
 import java.util.Set;
+
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 /**
  * <p>
@@ -24,24 +13,27 @@ import java.util.Set;
  * </p>
  */
 @Entity
-@Table(name = "student")
+@Table(name = "students")
 public class Student {
+
     @Id
+    @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false)
     private int id;
 
-    @Column(name = "name", length = 30, nullable = false)
+    @Column(name = "name", nullable = false, length = 20)
     private String name;
 
     @Column(name = "dob", nullable = false)
-    private Date dob;
+    private String dob;
 
-    @OneToOne(mappedBy = "student", cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "fee_id")
     private FeeDetail feeDetail;
 
     @ManyToOne
     @JoinColumn(name = "grade_id")
+    @JsonManagedReference
     private Grade grade;
 
     @ManyToMany(fetch = FetchType.EAGER)
@@ -68,11 +60,11 @@ public class Student {
         this.name = name;
     }
 
-    public Date getDob() {
+    public String getDob() {
         return dob;
     }
 
-    public void setDob(Date dob) {
+    public void setDob(String dob) {
         this.dob = dob;
     }
 
@@ -109,10 +101,10 @@ public class Student {
     public String toString() {
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("\nStudent ID: ").append(id)
-                     .append("\nStudent Name: ").append(name)
-                     .append("\nStudent Date of Birth: ").append(dob)
-                     .append(grade).append(feeDetail)
-                     .append("\nList of sports: ").append(sports);
+                .append("\nStudent Name: ").append(name)
+                .append("\nStudent Date of Birth: ").append(dob)
+                .append(feeDetail).append(grade)
+                .append(sports);
         return stringBuilder.toString();
     }
 }
