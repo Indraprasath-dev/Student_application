@@ -6,7 +6,7 @@ package com.i2i.cms.dto;
  * Contains fields for grade ID, standard, and section.
  * </p>
  */
-public class GradeDto {
+public class GradeInfoDto {
     private int gradeId;
     private int standard;
     private String section;

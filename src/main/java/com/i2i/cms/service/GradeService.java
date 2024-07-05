@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import com.i2i.cms.dto.ResponseGradeDto;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -14,7 +15,6 @@ import com.i2i.cms.controller.GradeController;
 import com.i2i.cms.customexception.StudentException;
 import com.i2i.cms.dto.CreateFeeDto;
 import com.i2i.cms.dto.CreateGradeDto;
-import com.i2i.cms.dto.StudentDto;
 import com.i2i.cms.model.FeeDetail;
 import com.i2i.cms.model.Grade;
 import com.i2i.cms.model.Student;
@@ -69,7 +69,7 @@ public class GradeService {
      * @return A list of StudentDto objects representing students in the grade.
      * @throws StudentException If an error occurs while retrieving students for the grade.
      */
-    public List<StudentDto> findStudentsByGradeId(int gradeId) throws StudentException {
+    public List<ResponseGradeDto> findStudentsByGradeId(int gradeId) throws StudentException {
         try {
             logger.debug("Finding students for grade ID {}", gradeId);
             Grade grade = gradeRepository.findById(gradeId);
@@ -80,8 +80,8 @@ public class GradeService {
             Set<Student> students = grade.getStudents();
             logger.debug("Found students for grade ID {}", gradeId);
             return students.stream()
-                   .map(this::mapToStudentDto)
-                   .collect(Collectors.toList());
+                    .map(this::mapToResponseGradeDto)
+                    .collect(Collectors.toList());
         } catch (Exception e) {
             logger.error("Error retrieving students for grade ID {}", gradeId, e);
             throw new StudentException("Error retrieving students for grade ID " + gradeId, e);
@@ -95,31 +95,24 @@ public class GradeService {
      * @param student The Student object to be mapped.
      * @return A StudentDto object containing mapped attributes from the Student object.
      */
-    private StudentDto mapToStudentDto(Student student) {
-        StudentDto studentDto = new StudentDto();
-        studentDto.setId(student.getId());
-        studentDto.setName(student.getName());
-        studentDto.setDob(student.getDob());
-        Grade grade = student.getGrade();
-        if (null != grade) {
-            CreateGradeDto gradeDto = new CreateGradeDto();
-            gradeDto.setStandard(grade.getStandard());
-            gradeDto.setSection(grade.getSection());
-            studentDto.setGrade(gradeDto);
-        }
+    private ResponseGradeDto mapToResponseGradeDto(Student student) {
+        ResponseGradeDto responseGradeDto = new ResponseGradeDto();
+        responseGradeDto.setId(student.getId());
+        responseGradeDto.setName(student.getName());
+        responseGradeDto.setDob(student.getDob());
         FeeDetail feeDetail = student.getFeeDetail();
         if (null != feeDetail) {
             CreateFeeDto feeDto = new CreateFeeDto();
             feeDto.setTuitionFee(feeDetail.getTuitionFee());
             feeDto.setHostelFee(feeDetail.getHostelFee());
             feeDto.setBusFee(feeDetail.getBusFee());
-            studentDto.setFee(feeDto);
+            responseGradeDto.setFee(feeDto);
         }
         Set<String> selectedSports = student.getSports().stream()
                 .map(Sport::getSportName)
                 .collect(Collectors.toSet());
-        studentDto.setSelectedSports(selectedSports);
-        return studentDto;
+        responseGradeDto.setSelectedSports(selectedSports);
+        return responseGradeDto;
     }
 }
 

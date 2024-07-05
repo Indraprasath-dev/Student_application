@@ -13,18 +13,13 @@ import org.springframework.stereotype.Service;
 
 import com.i2i.cms.controller.StudentController;
 import com.i2i.cms.customexception.StudentException;
-import com.i2i.cms.dto.CreateFeeDto;
-import com.i2i.cms.dto.CreateGradeDto;
-import com.i2i.cms.dto.CreateStudentDto;
-import com.i2i.cms.dto.StudentDto;
+import com.i2i.cms.dto.*;
 import com.i2i.cms.model.*;
 import com.i2i.cms.repository.StudentRepository;
 
 /**
  * <p>
- * This class is for managing student records.
- * It has the ability to search for students, retrieve all student records,
- * add new students and remove students.
+ * This class manages student records and operations.
  * </p>
  */
 @Service
@@ -42,10 +37,10 @@ public class StudentService {
      * Adds a new student based on the provided CreateStudentDto object.
      * </p>
      * @param createStudentDto The CreateStudentDto object containing student details.
-     * @return The StudentDto object representing the added student.
+     * @return The StudentInfoDto object representing the added student.
      * @throws StudentException If an error occurs while adding the student.
      */
-    public StudentDto addStudent(CreateStudentDto createStudentDto) throws StudentException {
+    public StudentInfoDto addStudent(CreateStudentDto createStudentDto) throws StudentException {
         try {
             logger.debug("Adding student: {}", createStudentDto.getName());
             Student student = new Student();
@@ -64,7 +59,7 @@ public class StudentService {
             student.setSports(sports);
             Student savedStudent = studentRepository.save(student);
             logger.debug("Student added successfully with ID: {}", savedStudent.getId());
-            return mapToStudentDto(savedStudent);
+            return mapToStudentInfoDto(savedStudent);
         } catch (Exception e) {
             logger.error("Error adding student: {}", createStudentDto.getName(), e);
             throw new StudentException("Error adding student" + createStudentDto.getName(), e);
@@ -75,16 +70,16 @@ public class StudentService {
      * <p>
      * Retrieves all students from the database.
      * </p>
-     * @return A list of StudentDto objects representing all students.
+     * @return A list of StudentInfoDto objects representing all students.
      * @throws StudentException If an error occurs while fetching students.
      */
-    public List<StudentDto> fetchAllStudents() throws StudentException {
+    public List<StudentInfoDto> fetchAllStudents() throws StudentException {
         try {
             logger.debug("Fetching all students");
             List<Student> students = studentRepository.findAll();
             logger.debug("Fetched {} students", students.size());
             return students.stream()
-                    .map(this::mapToStudentDto)
+                    .map(this::mapToStudentInfoDto)
                     .collect(Collectors.toList());
         } catch (Exception e) {
             logger.error("Error fetching all students", e);
@@ -121,10 +116,10 @@ public class StudentService {
      * Finds a student from the database based on the provided student ID.
      * </p>
      * @param studentId The ID of the student to find.
-     * @return The StudentDto object representing the found student, or null if not found.
+     * @return The StudentInfoDto object representing the found student, or null if not found.
      * @throws StudentException If an error occurs while finding the student.
      */
-    public StudentDto findStudentById(int studentId) throws StudentException {
+    public StudentInfoDto findStudentById(int studentId) throws StudentException {
         try {
             logger.debug("Finding student with ID: {}", studentId);
             Optional<Student> studentOptional = studentRepository.findById(studentId);
@@ -132,7 +127,7 @@ public class StudentService {
                 logger.warn("Student with ID {} not found", studentId);
                 return null;
             }
-            return mapToStudentDto(studentOptional.get());
+            return mapToStudentInfoDto(studentOptional.get());
         } catch (Exception e) {
             logger.error("Error finding student with ID: {}", studentId, e);
             throw new StudentException("Error finding student with ID " + studentId, e);
@@ -141,35 +136,29 @@ public class StudentService {
 
     /**
      * <p>
-     * Maps a Student entity to a StudentDto object.
+     * Maps a Student entity to a StudentInfoDto object.
      * </p>
      * @param student The Student entity to be mapped.
-     * @return The StudentDto object containing mapped attributes from the Student entity.
+     * @return The StudentInfoDto object containing mapped attributes from the Student entity.
      */
-    private StudentDto mapToStudentDto(Student student) {
-        StudentDto studentDto = new StudentDto();
-        studentDto.setId(student.getId());
-        studentDto.setName(student.getName());
-        studentDto.setDob(student.getDob());
-        Grade grade = student.getGrade();
-        if (null != grade) {
-            CreateGradeDto gradeDto = new CreateGradeDto();
-            gradeDto.setStandard(grade.getStandard());
-            gradeDto.setSection(grade.getSection());
-            studentDto.setGrade(gradeDto);
-        }
-        FeeDetail feeDetail = student.getFeeDetail();
-        if (null != feeDetail) {
-            CreateFeeDto feeDto = new CreateFeeDto();
-            feeDto.setTuitionFee(feeDetail.getTuitionFee());
-            feeDto.setHostelFee(feeDetail.getHostelFee());
-            feeDto.setBusFee(feeDetail.getBusFee());
-            studentDto.setFee(feeDto);
-        }
+    private StudentInfoDto mapToStudentInfoDto(Student student) {
+        StudentInfoDto studentInfoDto = new StudentInfoDto();
+        studentInfoDto.setId(student.getId());
+        studentInfoDto.setName(student.getName());
+        studentInfoDto.setDob(student.getDob());
+        CreateGradeDto gradeDto = new CreateGradeDto();
+        gradeDto.setStandard(student.getGrade().getStandard());
+        gradeDto.setSection(student.getGrade().getSection());
+        studentInfoDto.setGrade(gradeDto);
+        CreateFeeDto feeDto = new CreateFeeDto();
+        feeDto.setTuitionFee(student.getFeeDetail().getTuitionFee());
+        feeDto.setHostelFee(student.getFeeDetail().getHostelFee());
+        feeDto.setBusFee(student.getFeeDetail().getBusFee());
+        studentInfoDto.setFee(feeDto);
         Set<String> selectedSports = student.getSports().stream()
                 .map(Sport::getSportName)
                 .collect(Collectors.toSet());
-        studentDto.setSelectedSports(selectedSports);
-        return studentDto;
+        studentInfoDto.setSelectedSports(selectedSports);
+        return studentInfoDto;
     }
 }

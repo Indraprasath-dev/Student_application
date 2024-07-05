@@ -27,7 +27,6 @@ public class Grade {
     private String section;
 
     @OneToMany(mappedBy = "grade", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JsonBackReference
     private Set<Student> students;
 
     public void setGradeId(int gradeId) {

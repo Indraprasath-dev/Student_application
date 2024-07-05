@@ -5,15 +5,14 @@ import java.util.Set;
 /**
  * <p>
  * Data Transfer Object (DTO) representing student details.
- * Contains fields for student ID, name, date of birth, grade details, fee details,
+ * Contains fields for student ID, name, date of birth, fee details,
  * and selected sports.
  * </p>
  */
-public class StudentDto {
+public class ResponseGradeDto {
     private int id;
     private String name;
     private String dob;
-    private CreateGradeDto grade;
     private CreateFeeDto fee;
     private Set<String> selectedSports;
 
@@ -39,14 +38,6 @@ public class StudentDto {
 
     public void setDob(String dob) {
         this.dob = dob;
-    }
-
-    public CreateGradeDto getGrade() {
-        return grade;
-    }
-
-    public void setGrade(CreateGradeDto grade) {
-        this.grade = grade;
     }
 
     public CreateFeeDto getFee() {

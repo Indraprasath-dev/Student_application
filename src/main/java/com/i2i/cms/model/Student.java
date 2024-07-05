@@ -33,7 +33,6 @@ public class Student {
 
     @ManyToOne
     @JoinColumn(name = "grade_id")
-    @JsonManagedReference
     private Grade grade;
 
     @ManyToMany(fetch = FetchType.EAGER)

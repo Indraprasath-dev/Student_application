@@ -9,7 +9,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import com.i2i.cms.customexception.StudentException;
-import com.i2i.cms.dto.SportDto;
+import com.i2i.cms.dto.CreateSportDto;
+import com.i2i.cms.dto.ResponseSportDto;
 import com.i2i.cms.service.SportService;
 
 /**
@@ -28,14 +29,14 @@ public class SportController {
      * <p>
      * POST endpoint to add a new sport.
      * </p>
-     * @param sportDto The SportDto object containing sport details to be added.
+     * @param createSportDto The CreateSportDto object containing sport details to be added.
      * @return the HTTP response after adding a sport.
      */
-    @PostMapping("/add-sports")
-    public ResponseEntity<?> addSport(@RequestBody SportDto sportDto) {
+    @PostMapping("/add-sport")
+    public ResponseEntity<?> addSport(@RequestBody CreateSportDto createSportDto) {
         try {
             logger.info("Adding sport");
-            SportDto createdSport = sportService.addSport(sportDto);
+            ResponseSportDto createdSport = sportService.addSport(createSportDto);
             logger.info("Successfully added sport: {}", createdSport.getSportId());
             return ResponseEntity.status(HttpStatus.CREATED).body(createdSport);
         } catch (StudentException e) {

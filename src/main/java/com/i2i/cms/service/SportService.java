@@ -10,9 +10,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.i2i.cms.controller.SportController;
 import com.i2i.cms.customexception.StudentException;
-import com.i2i.cms.dto.SportDto;
+import com.i2i.cms.dto.CreateSportDto;
+import com.i2i.cms.dto.ResponseSportDto;
 import com.i2i.cms.model.Sport;
 import com.i2i.cms.repository.SportRepository;
 
@@ -25,28 +25,28 @@ import com.i2i.cms.repository.SportRepository;
 public class SportService {
     @Autowired
     private SportRepository sportRepository;
-    private static final Logger logger = LoggerFactory.getLogger(SportController.class);
+    private static final Logger logger = LoggerFactory.getLogger(SportService.class);
 
     /**
      * <p>
-     * Adds a new sport using the details from the provided SportDto object.
+     * Adds a new sport using the details from the provided CreateSportDto object.
      * </p>
-     * @param sportDto The SportDto object containing details of the sport to be added.
-     * @return The SportDto object representing the added sport.
+     * @param createSportDto The CreateSportDto object containing details of the sport to be added.
+     * @return The ResponseSportDto object representing the added sport.
      * @throws StudentException If an error occurs while adding the sport.
      */
-    public SportDto addSport(SportDto sportDto) throws StudentException {
+    public ResponseSportDto addSport(CreateSportDto createSportDto) throws StudentException {
         try {
-            logger.debug("Adding sport: {}", sportDto.getSportName());
+            logger.debug("Adding sport: {}", createSportDto.getSportName());
             Sport sport = new Sport();
-            sport.setSportName(sportDto.getSportName());
-            sport.setCoach(sportDto.getCoach());
+            sport.setSportName(createSportDto.getSportName());
+            sport.setCoach(createSportDto.getCoach());
             Sport savedSport = sportRepository.save(sport);
             logger.debug("Sport added successfully: {}", savedSport.getSportName());
-            return mapToSportDto(savedSport);
+            return mapToResponseSportDto(savedSport);
         } catch (Exception e) {
-            logger.error("Error adding sport: " + sportDto.getSportName(), e);
-            throw new StudentException("Error adding sport" +sportDto.getSportName(), e);
+            logger.error("Error adding sport: " + createSportDto.getSportName(), e);
+            throw new StudentException("Error adding sport: " + createSportDto.getSportName(), e);
         }
     }
 
@@ -68,16 +68,16 @@ public class SportService {
 
     /**
      * <p>
-     * Maps a Sport entity to a SportDto object.
+     * Maps a Sport entity to a ResponseSportDto object.
      * </p>
      * @param sport The Sport entity to be mapped.
-     * @return The SportDto object containing mapped attributes from the Sport entity.
+     * @return The ResponseSportDto object containing mapped attributes from the Sport entity.
      */
-    private SportDto mapToSportDto(Sport sport) {
-        SportDto sportDto = new SportDto();
-        sportDto.setSportId(sport.getSportId());
-        sportDto.setSportName(sport.getSportName());
-        sportDto.setCoach(sport.getCoach());
-        return sportDto;
+    private ResponseSportDto mapToResponseSportDto(Sport sport) {
+        ResponseSportDto responseSportDto = new ResponseSportDto();
+        responseSportDto.setSportId(sport.getSportId());
+        responseSportDto.setSportName(sport.getSportName());
+        responseSportDto.setCoach(sport.getCoach());
+        return responseSportDto;
     }
 }
