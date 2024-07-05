@@ -15,6 +15,6 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 @EntityScan(basePackages = "com.i2i.cms.model")
 public class CmsApplication {
     public static void main(String[] args) {
-	    SpringApplication.run(CmsApplication.class, args);
-	}
+        SpringApplication.run(CmsApplication.class, args);
+    }
 }
