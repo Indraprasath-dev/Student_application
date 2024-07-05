@@ -1,5 +1,11 @@
 package com.i2i.cms.dto;
 
+/**
+ * <p>
+ * Data Transfer Object representing sport details for creating a student sports.
+ * Contains fields for sport name and coach.
+ * </p>
+ */
 public class CreateSportDto {
     private String sportName;
     private String coach;

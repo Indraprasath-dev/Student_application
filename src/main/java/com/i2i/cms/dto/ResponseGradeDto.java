@@ -4,7 +4,7 @@ import java.util.Set;
 
 /**
  * <p>
- * Data Transfer Object (DTO) representing student details.
+ * Data Transfer Object representing student details.
  * Contains fields for student ID, name, date of birth, fee details,
  * and selected sports.
  * </p>

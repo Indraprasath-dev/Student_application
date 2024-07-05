@@ -12,8 +12,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.i2i.cms.customexception.StudentException;
-import com.i2i.cms.dto.*;
-import com.i2i.cms.model.*;
+import com.i2i.cms.dto.CreateFeeDto;
+import com.i2i.cms.dto.CreateGradeDto;
+import com.i2i.cms.dto.CreateStudentDto;
+import com.i2i.cms.dto.StudentInfoDto;
+import com.i2i.cms.model.FeeDetail;
+import com.i2i.cms.model.Grade;
+import com.i2i.cms.model.Sport;
+import com.i2i.cms.model.Student;
 import com.i2i.cms.repository.StudentRepository;
 
 /**

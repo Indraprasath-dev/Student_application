@@ -2,7 +2,7 @@
 
     /**
      * <p>
-     * Data Transfer Object representing fee details for creating or updating a student's fees.
+     * Data Transfer Object representing fee details for creating a student's fees.
      * Contains fields for tuition fee, bus fee, and hostel fee.
      * </p>
      */

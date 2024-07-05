@@ -2,7 +2,7 @@ package com.i2i.cms.dto;
 
 /**
  * <p>
- * Data Transfer Object (DTO) representing sports details.
+ * Data Transfer Object representing sports details.
  * Contains fields for sport ID, sport name, and coach.
  * </p>
  */

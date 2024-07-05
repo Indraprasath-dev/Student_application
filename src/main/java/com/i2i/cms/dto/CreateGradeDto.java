@@ -2,7 +2,7 @@ package com.i2i.cms.dto;
 
 /**
  * <p>
- * Data Transfer Object representing grade details for creating or updating student grades.
+ * Data Transfer Object representing grade details for creating student grades.
  * Contains fields for standard and section.
  * </p>
  */
