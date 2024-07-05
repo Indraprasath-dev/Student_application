@@ -9,7 +9,6 @@ import java.util.Set;
  * and selected sports.
  * </p>
  */
-
 public class StudentInfoDto {
     private int id;
     private String name;

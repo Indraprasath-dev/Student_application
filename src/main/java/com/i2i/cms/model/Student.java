@@ -100,10 +100,10 @@ public class Student {
     public String toString() {
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("\nStudent ID: ").append(id)
-                .append("\nStudent Name: ").append(name)
-                .append("\nStudent Date of Birth: ").append(dob)
-                .append(feeDetail).append(grade)
-                .append(sports);
+                     .append("\nStudent Name: ").append(name)
+                     .append("\nStudent Date of Birth: ").append(dob)
+                     .append(feeDetail).append(grade)
+                     .append(sports);
         return stringBuilder.toString();
     }
 }

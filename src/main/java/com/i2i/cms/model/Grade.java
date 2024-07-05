@@ -70,8 +70,8 @@ public class Grade {
     public String toString() {
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("\nGrade id : ").append(gradeId)
-                .append("\nStudent Standard : ").append(standard)
-                .append("\nStudent Section : ").append(section);
+                     .append("\nStudent Standard : ").append(standard)
+                     .append("\nStudent Section : ").append(section);
         return stringBuilder.toString();
     }
 }

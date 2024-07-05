@@ -2,7 +2,6 @@ package com.i2i.cms.dto;
 
 public class CreateSportDto {
     private String sportName;
-
     private String coach;
 
     public String getSportName() {

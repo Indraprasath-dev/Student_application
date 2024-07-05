@@ -67,9 +67,9 @@ public class Sport {
     public String toString() {
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("Sport Id = ").append(sportId)
-                .append(", SportName = '").append(sportName)
-                .append("', Coach = '").append(coach)
-                .append("' ");
+                     .append(", SportName = '").append(sportName)
+                     .append("', Coach = '").append(coach)
+                     .append("' ");
         return stringBuilder.toString();
     }
 }

@@ -34,7 +34,7 @@ public class GradeController {
         try {
             logger.info("Retrieving students for grade ID {}", gradeId);
             List<ResponseGradeDto> students = gradeService.findStudentsByGradeId(gradeId);
-            if (students == null || students.isEmpty()) {
+            if (null == students || students.isEmpty()) {
                 logger.warn("No students found for grade ID: {}", gradeId);
                 return ResponseEntity.noContent().build();
             }

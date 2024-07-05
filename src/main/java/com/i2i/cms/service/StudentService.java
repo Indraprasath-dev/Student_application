@@ -11,7 +11,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.i2i.cms.controller.StudentController;
 import com.i2i.cms.customexception.StudentException;
 import com.i2i.cms.dto.*;
 import com.i2i.cms.model.*;
@@ -24,7 +23,7 @@ import com.i2i.cms.repository.StudentRepository;
  */
 @Service
 public class StudentService {
-    private static final Logger logger = LoggerFactory.getLogger(StudentController.class);
+    private static final Logger logger = LoggerFactory.getLogger(StudentService.class);
     @Autowired
     private StudentRepository studentRepository;
     @Autowired
@@ -54,6 +53,7 @@ public class StudentService {
             feeDetail.setTuitionFee(feeDto.getTuitionFee());
             feeDetail.setHostelFee(feeDto.getHostelFee());
             feeDetail.setBusFee(feeDto.getBusFee());
+            feeDetail.setStudent(student);
             student.setFeeDetail(feeDetail);
             Set<Sport> sports = sportService.retrieveSports(createStudentDto.getSelectedSports());
             student.setSports(sports);
@@ -62,7 +62,7 @@ public class StudentService {
             return mapToStudentInfoDto(savedStudent);
         } catch (Exception e) {
             logger.error("Error adding student: {}", createStudentDto.getName(), e);
-            throw new StudentException("Error adding student" + createStudentDto.getName(), e);
+            throw new StudentException("Error adding student " + createStudentDto.getName(), e);
         }
     }
 

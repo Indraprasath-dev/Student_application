@@ -28,6 +28,9 @@ import com.i2i.cms.repository.GradeRepository;
  */
 @Service
 public class GradeService {
+    @Autowired
+    private GradeRepository gradeRepository;
+    private static final Logger logger = LoggerFactory.getLogger(GradeController.class);
 
     /**
      * <p>
@@ -38,9 +41,6 @@ public class GradeService {
      * @return The Grade object that was added or retrieved from the database.
      * @throws StudentException If an error occurs while adding or retrieving the grade.
      */
-    @Autowired
-    private GradeRepository gradeRepository;
-    private static final Logger logger = LoggerFactory.getLogger(GradeController.class);
     public Grade addGrade(int standard, String section) throws StudentException {
         try {
             logger.debug("Adding grade with standard {} and section {}", standard, section);

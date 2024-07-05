@@ -78,8 +78,8 @@ public class FeeDetail {
     public String toString() {
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("\nTuitionFee : ").append(tuitionFee)
-                .append(", BusFee : ").append(busFee)
-                .append(", HostelFee : ").append(hostelFee);
+                     .append(", BusFee : ").append(busFee)
+                     .append(", HostelFee : ").append(hostelFee);
         return stringBuilder.toString();
     }
 }

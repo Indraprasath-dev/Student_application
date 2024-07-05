@@ -8,9 +8,7 @@ package com.i2i.cms.dto;
  */
 public class ResponseSportDto {
     private int sportId;
-
     private String sportName;
-
     private String coach;
 
     public int getSportId() {
