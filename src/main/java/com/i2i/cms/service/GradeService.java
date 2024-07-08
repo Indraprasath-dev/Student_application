@@ -28,7 +28,6 @@ import com.i2i.cms.repository.GradeRepository;
 @Service
 public class GradeService {
     private static final Logger logger = LoggerFactory.getLogger(GradeService.class);
-
     @Autowired
     private GradeRepository gradeRepository;
 
@@ -65,7 +64,7 @@ public class GradeService {
      * <p>
      * Finds students associated with the given grade ID and returns their details as a list of ResponseGradeDto.
      * </p>
-     * @param gradeId the UUID of the grade to search for
+     * @param gradeId the UUID of the grade to search
      * @return a list of ResponseGradeDto objects representing students in the grade
      * @throws StudentException if an error occurs while retrieving students
      */
@@ -98,7 +97,7 @@ public class GradeService {
      */
     private ResponseGradeDto mapToResponseGradeDto(Student student) {
         ResponseGradeDto responseGradeDto = new ResponseGradeDto();
-        responseGradeDto.setId(student.getId()); // Assuming ID is UUID
+        responseGradeDto.setId(student.getId()); 
         responseGradeDto.setName(student.getName());
         responseGradeDto.setDob(student.getDob());
         FeeDetail feeDetail = student.getFeeDetail();

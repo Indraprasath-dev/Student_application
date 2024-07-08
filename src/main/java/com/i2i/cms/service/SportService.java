@@ -24,7 +24,6 @@ import com.i2i.cms.repository.SportRepository;
 @Service
 public class SportService implements SportServiceInterface {
     private static final Logger logger = LoggerFactory.getLogger(SportService.class);
-
     @Autowired
     private SportRepository sportRepository;
 

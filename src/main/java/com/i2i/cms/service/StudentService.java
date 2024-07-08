@@ -102,7 +102,7 @@ public class StudentService implements StudentServiceInterface {
      * @return True if the student was successfully deleted, false otherwise.
      * @throws StudentException If an error occurs while deleting the student.
      */
-    public boolean deleteStudentById(UUID studentId) throws StudentException {
+     public boolean deleteStudentById(UUID studentId) throws StudentException {
         try {
             logger.debug("Deleting student with ID: {}", studentId);
             if (!studentRepository.existsById(studentId)) {

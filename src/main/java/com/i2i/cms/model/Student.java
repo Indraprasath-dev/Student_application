@@ -15,7 +15,6 @@ import jakarta.persistence.*;
 @Entity
 @Table(name = "students")
 public class Student {
-
     @Id
     @Column(name = "id", updatable = false, nullable = false)
     @GeneratedValue(strategy = GenerationType.AUTO)

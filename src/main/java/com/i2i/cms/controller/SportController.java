@@ -20,10 +20,10 @@ import com.i2i.cms.service.SportService;
 @RestController
 @RequestMapping("/cms/api/v1/sports")
 public class SportController {
+    private static final Logger logger = LoggerFactory.getLogger(SportController.class);
     @Autowired
     private SportService sportService;
-    private static final Logger logger = LoggerFactory.getLogger(SportController.class);
-
+    
     /**
      * <p>
      * POST endpoint to add a new sport.

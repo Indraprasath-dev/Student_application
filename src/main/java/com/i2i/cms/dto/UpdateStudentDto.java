@@ -1,15 +1,11 @@
 package com.i2i.cms.dto;
 
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.UUID;
-
-import com.fasterxml.jackson.annotation.JsonFormat;
 
 public class UpdateStudentDto {
     private UUID id;
     private String name;
-//    @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate dob;
 
     public UUID getId() {

@@ -25,10 +25,10 @@ import com.i2i.cms.service.StudentService;
 @RestController
 @RequestMapping("/cms/api/v1/students")
 public class StudentController {
+    private static final Logger logger = LoggerFactory.getLogger(StudentController.class);
     @Autowired
     private StudentService studentService;
-    private static final Logger logger = LoggerFactory.getLogger(StudentController.class);
-
+    
     /**
      * <p>
      * Endpoint to add a new student.
@@ -101,12 +101,15 @@ public class StudentController {
      * <p>
      * Updates the information of a student based on the provided UpdateStudentDto.
      * </p>
+     * @param id The id of the student to update details.
      * @param updateStudentDto The data transfer object containing updated student information.
-     * @return A ResponseEntity containing the updated StudentInfoDto if successful, or an appropriate HTTP status and message if not.
+     * @return A ResponseEntity containing the updated StudentInfoDto if successful, or an appropriate HTTP status and 
+     * message if not.
      */
-    @PutMapping()
-    public ResponseEntity<?> updateStudentById(@RequestBody UpdateStudentDto updateStudentDto) {
+    @PutMapping("/{id}")
+    public ResponseEntity<?> updateStudentById(@PathVariable UUID id, @RequestBody UpdateStudentDto updateStudentDto) {
         try {
+            updateStudentDto.setId(id);
             StudentInfoDto studentInfoDto = studentService.updateStudentById(updateStudentDto);
             if (null == studentInfoDto) {
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Not a valid ID");
@@ -116,7 +119,6 @@ public class StudentController {
             logger.error("Error updating student with ID: {}", e);
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
         }
-
     }
 
     /**
@@ -136,7 +138,7 @@ public class StudentController {
                 return ResponseEntity.noContent().build();
             } else {
                 logger.warn("Student with ID {} not found", id);
-                return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Not a valid ID");
             }
         } catch (StudentException e) {
             logger.error("Error deleting student with ID: {}", id, e);

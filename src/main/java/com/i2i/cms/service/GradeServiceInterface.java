@@ -20,8 +20,8 @@ public interface GradeServiceInterface {
      * <p>
      * Adds a new grade with the specified standard and section.
      * </p>
-     * @param standard the standard of the grade
-     * @param section the section of the grade
+     * @param standard the standard of the grade (1 to 12)
+     * @param section the section of the grade (A, B, or C)
      * @return the added Grade object
      * @throws StudentException if there is an error adding the grade
      */

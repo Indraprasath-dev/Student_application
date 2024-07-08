@@ -26,7 +26,6 @@ import com.i2i.cms.service.GradeService;
 @RequestMapping("/cms/api/v1/grades")
 public class GradeController {
     private static final Logger logger = LoggerFactory.getLogger(GradeController.class);
-
     @Autowired
     private GradeService gradeService;
 
