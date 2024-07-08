@@ -1,8 +1,11 @@
 package com.i2i.cms.repository;
 
-import com.i2i.cms.model.Sport;
+import java.util.UUID;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
+
+import com.i2i.cms.model.Sport;
 
 /**
  * <p>
@@ -11,5 +14,5 @@ import org.springframework.stereotype.Repository;
  * </p>
  */
 @Repository
-public interface SportRepository extends JpaRepository<Sport, Integer> {
+public interface SportRepository extends JpaRepository<Sport, UUID> {
 }

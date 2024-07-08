@@ -1,6 +1,11 @@
 package com.i2i.cms.dto;
 
+import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
+import java.util.UUID;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 /**
  * <p>
@@ -10,10 +15,11 @@ import java.util.List;
  */
 public class CreateStudentDto {
     private String name;
-    private String dob;
+//    @JsonFormat(pattern = "yyyy-MM-dd")
+    private LocalDate dob;
     private CreateGradeDto grade;
     private CreateFeeDto fee;
-    private List<Integer> selectedSports;
+    private List<UUID> selectedSports;
 
     public String getName() {
         return name;
@@ -23,11 +29,11 @@ public class CreateStudentDto {
         this.name = name;
     }
 
-    public String getDob() {
+    public LocalDate getDob() {
         return dob;
     }
 
-    public void setDob(String dob) {
+    public void setDob(LocalDate dob) {
         this.dob = dob;
     }
 
@@ -47,11 +53,11 @@ public class CreateStudentDto {
         this.fee = fee;
     }
 
-    public List<Integer> getSelectedSports() {
+    public List<UUID> getSelectedSports() {
         return selectedSports;
     }
 
-    public void setSelectedSports(List<Integer> selectedSports) {
+    public void setSelectedSports(List<UUID> selectedSports) {
         this.selectedSports = selectedSports;
     }
 }

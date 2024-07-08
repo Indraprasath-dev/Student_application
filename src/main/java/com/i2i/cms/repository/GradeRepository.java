@@ -1,8 +1,12 @@
 package com.i2i.cms.repository;
 
-import com.i2i.cms.model.Grade;
+import java.util.Optional;
+import java.util.UUID;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
+
+import com.i2i.cms.model.Grade;
 
 /**
  * <p>
@@ -11,7 +15,7 @@ import org.springframework.stereotype.Repository;
  * </p>
  */
 @Repository
-public interface GradeRepository extends JpaRepository<Grade, Integer> {
+public interface GradeRepository extends JpaRepository<Grade, UUID> {
     Grade findGradeByStandardAndSection(int standard, String section);
-    Grade findById(int gradeId);
+    Optional<Grade> findById(UUID gradeId);
 }

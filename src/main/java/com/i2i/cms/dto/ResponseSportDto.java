@@ -1,21 +1,21 @@
 package com.i2i.cms.dto;
 
+import java.util.UUID;
+
 /**
- * <p>
- * Data Transfer Object representing sports details.
+ * Data Transfer Object (DTO) representing sports details.
  * Contains fields for sport ID, sport name, and coach.
- * </p>
  */
 public class ResponseSportDto {
-    private int sportId;
+    private UUID sportId;
     private String sportName;
     private String coach;
 
-    public int getSportId() {
+    public UUID getSportId() {
         return sportId;
     }
 
-    public void setSportId(int sportId) {
+    public void setSportId(UUID sportId) {
         this.sportId = sportId;
     }
 

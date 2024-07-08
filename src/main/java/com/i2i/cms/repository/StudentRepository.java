@@ -1,8 +1,11 @@
 package com.i2i.cms.repository;
 
 import java.util.Optional;
-import com.i2i.cms.model.Student;
+import java.util.UUID;
+
 import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.i2i.cms.model.Student;
 
 /**
  * <p>
@@ -10,8 +13,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
  * Extends JpaRepository to inherit basic CRUD operations.
  * </p>
  */
-public interface StudentRepository extends JpaRepository<Student, Integer> {
-    Optional<Student> findById(Integer studentId);
-    boolean existsById(Integer id);
+public interface StudentRepository extends JpaRepository<Student, UUID> {
+    Optional<Student> findById(UUID studentId);
+    boolean existsById(UUID id);
 }
 

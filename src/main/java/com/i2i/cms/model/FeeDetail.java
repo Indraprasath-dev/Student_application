@@ -1,13 +1,6 @@
 package com.i2i.cms.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Column;
-import jakarta.persistence.OneToOne;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 /**
  * <p>
@@ -74,19 +67,5 @@ public class FeeDetail {
 
     public void setStudent(Student student) {
         this.student = student;
-    }
-
-    /**
-     * <p>
-     * Returns a string representation of the feeDetail object for printing.
-     * </p>
-     * @return A string representation of the feeDetail object.
-     */
-    public String toString() {
-        StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append("\nTuitionFee : ").append(tuitionFee)
-                     .append(", BusFee : ").append(busFee)
-                     .append(", HostelFee : ").append(hostelFee);
-        return stringBuilder.toString();
     }
 }

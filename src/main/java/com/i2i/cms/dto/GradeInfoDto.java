@@ -1,5 +1,7 @@
 package com.i2i.cms.dto;
 
+import java.util.UUID;
+
 /**
  * <p>
  * Data Transfer Object representing grade details.
@@ -7,15 +9,15 @@ package com.i2i.cms.dto;
  * </p>
  */
 public class GradeInfoDto {
-    private int gradeId;
+    private UUID gradeId;
     private int standard;
     private String section;
 
-    public void setGradeId(int gradeId) {
+    public void setGradeId(UUID gradeId) {
         this.gradeId = gradeId;
     }
 
-    public int getGradeId() {
+    public UUID getGradeId() {
         return gradeId;
     }
 

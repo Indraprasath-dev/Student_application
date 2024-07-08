@@ -1,15 +1,9 @@
 package com.i2i.cms.model;
 
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.Table;
 import java.util.Set;
+import java.util.UUID;
+
+import jakarta.persistence.*;
 
 /**
  * <p>
@@ -22,9 +16,9 @@ import java.util.Set;
 public class Grade {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "grade_id", nullable = false)
-    private int gradeId;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "grade_id", updatable = false, nullable = false)
+    private UUID gradeId;
 
     @Column(name = "standard", nullable = false)
     private int standard;
@@ -33,13 +27,14 @@ public class Grade {
     private String section;
 
     @OneToMany(mappedBy = "grade", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    //@JsonBackReference
     private Set<Student> students;
 
-    public void setGradeId(int gradeId) {
+    public void setGradeId(UUID gradeId) {
         this.gradeId = gradeId;
     }
 
-    public int getGradeId() {
+    public UUID getGradeId() {
         return gradeId;
     }
 
@@ -65,19 +60,5 @@ public class Grade {
 
     public Set<Student> getStudents() {
         return students;
-    }
-
-    /**
-     * <p>
-     * Returns a string representation of the grade object for printing.
-     * </p>
-     * @return A string representation of the grade object.
-     */
-    public String toString() {
-        StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append("\nGrade id : ").append(gradeId)
-                     .append("\nStudent Standard : ").append(standard)
-                     .append("\nStudent Section : ").append(section);
-        return stringBuilder.toString();
     }
 }

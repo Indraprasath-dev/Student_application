@@ -2,11 +2,11 @@ package com.i2i.cms.service;
 
 import java.util.List;
 import java.util.Set;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,10 +22,11 @@ import com.i2i.cms.repository.SportRepository;
  * </p>
  */
 @Service
-public class SportService {
+public class SportService implements SportServiceInterface {
+    private static final Logger logger = LoggerFactory.getLogger(SportService.class);
+
     @Autowired
     private SportRepository sportRepository;
-    private static final Logger logger = LoggerFactory.getLogger(SportService.class);
 
     /**
      * <p>
@@ -58,7 +59,7 @@ public class SportService {
      * @return A set of Sport objects matching the selected sport IDs.
      * @throws StudentException If an error occurs while retrieving the sports.
      */
-    public Set<Sport> retrieveSports(List<Integer> selectedSports) throws StudentException {
+    public Set<Sport> retrieveSports(List<UUID> selectedSports) throws StudentException {
         try {
             return sportRepository.findAllById(selectedSports).stream().collect(Collectors.toSet());
         } catch (Exception e) {
@@ -73,7 +74,7 @@ public class SportService {
      * @param sport The Sport entity to be mapped.
      * @return The ResponseSportDto object containing mapped attributes from the Sport entity.
      */
-    private ResponseSportDto mapToResponseSportDto(Sport sport) {
+    public ResponseSportDto mapToResponseSportDto(Sport sport) {
         ResponseSportDto responseSportDto = new ResponseSportDto();
         responseSportDto.setSportId(sport.getSportId());
         responseSportDto.setSportName(sport.getSportName());

@@ -1,29 +1,18 @@
 package com.i2i.cms.model;
 
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToMany;
-import jakarta.persistence.Table;
 import java.util.Set;
+import java.util.UUID;
 
-/**
- * <p>
- * Represents a student with associated information such as sport id, sport name, coach.
- * </p>
- */
+import jakarta.persistence.*;
+
 @Entity
 @Table(name = "sports")
 public class Sport {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "sport_id", nullable = false)
-    private int sportId;
+    private UUID sportId;
 
     @Column(name = "sport_name", length = 20, nullable = false)
     private String sportName;
@@ -34,11 +23,11 @@ public class Sport {
     @ManyToMany(mappedBy = "sports")
     private Set<Student> students;
 
-    public int getSportId() {
+    public UUID getSportId() {
         return sportId;
     }
 
-    public void setSportId(int sportId) {
+    public void setSportId(UUID sportId) {
         this.sportId = sportId;
     }
 
@@ -64,20 +53,5 @@ public class Sport {
 
     public void setStudents(Set<Student> students) {
         this.students = students;
-    }
-
-    /**
-     * <p>
-     * Returns a string representation of the Sport object for printing.
-     * </p>
-     * @return A string representation of the Sport object.
-     */
-    public String toString() {
-        StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append("Sport Id = ").append(sportId)
-                     .append(", SportName = '").append(sportName)
-                     .append("', Coach = '").append(coach)
-                     .append("' ");
-        return stringBuilder.toString();
     }
 }

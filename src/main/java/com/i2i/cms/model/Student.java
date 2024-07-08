@@ -1,19 +1,10 @@
 package com.i2i.cms.model;
 
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.JoinTable;
-import jakarta.persistence.ManyToMany;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToOne;
-import jakarta.persistence.Table;
+import java.time.LocalDate;
 import java.util.Set;
+import java.util.UUID;
+
+import jakarta.persistence.*;
 
 /**
  * <p>
@@ -26,15 +17,16 @@ import java.util.Set;
 public class Student {
 
     @Id
-    @Column(name = "id")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    @Column(name = "id", updatable = false, nullable = false)
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private UUID id;
 
     @Column(name = "name", nullable = false, length = 20)
     private String name;
 
+    @Temporal(TemporalType.DATE)
     @Column(name = "dob", nullable = false)
-    private String dob;
+    private LocalDate dob;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "fee_id")
@@ -52,11 +44,11 @@ public class Student {
     )
     private Set<Sport> sports;
 
-    public int getId() {
+    public UUID getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(UUID id) {
         this.id = id;
     }
 
@@ -68,11 +60,11 @@ public class Student {
         this.name = name;
     }
 
-    public String getDob() {
+    public LocalDate getDob() {
         return dob;
     }
 
-    public void setDob(String dob) {
+    public void setDob(LocalDate dob) {
         this.dob = dob;
     }
 
@@ -98,21 +90,5 @@ public class Student {
 
     public void setSports(Set<Sport> sports) {
         this.sports = sports;
-    }
-
-    /**
-     * <p>
-     * Returns a string representation of the student object for printing.
-     * </p>
-     * @return A string representation of the student object.
-     */
-    public String toString() {
-        StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append("\nStudent ID: ").append(id)
-                     .append("\nStudent Name: ").append(name)
-                     .append("\nStudent Date of Birth: ").append(dob)
-                     .append(feeDetail).append(grade)
-                     .append(sports);
-        return stringBuilder.toString();
     }
 }

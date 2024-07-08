@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import com.i2i.cms.customexception.StudentException;
 import com.i2i.cms.dto.CreateSportDto;
 import com.i2i.cms.dto.ResponseSportDto;
@@ -19,7 +18,7 @@ import com.i2i.cms.service.SportService;
  * </p>
  */
 @RestController
-@RequestMapping("/cms/api/v1/students")
+@RequestMapping("/cms/api/v1/sports")
 public class SportController {
     @Autowired
     private SportService sportService;
@@ -32,7 +31,7 @@ public class SportController {
      * @param createSportDto The CreateSportDto object containing sport details to be added.
      * @return the HTTP response after adding a sport.
      */
-    @PostMapping("/add-sport")
+    @PostMapping
     public ResponseEntity<?> addSport(@RequestBody CreateSportDto createSportDto) {
         try {
             logger.info("Adding sport");

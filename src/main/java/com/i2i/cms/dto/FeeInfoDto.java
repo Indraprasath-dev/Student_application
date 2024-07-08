@@ -2,11 +2,11 @@ package com.i2i.cms.dto;
 
 /**
  * <p>
- * Data Transfer Object representing fee details for creating or updating a student's fees.
+ * Data Transfer Object representing fee details.
  * Contains fields for tuition fee, bus fee, and hostel fee.
  * </p>
  */
-public class CreateFeeDto {
+public class FeeInfoDto {
     private int tuitionFee;
     private int busFee;
     private int hostelFee;

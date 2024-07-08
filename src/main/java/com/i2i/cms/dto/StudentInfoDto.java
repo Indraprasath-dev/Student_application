@@ -1,27 +1,30 @@
 package com.i2i.cms.dto;
 
+import java.time.LocalDate;
 import java.util.Set;
+import java.util.UUID;
 
 /**
  * <p>
- * Data Transfer Object representing student details.
+ * Data Transfer Object (DTO) representing student details.
  * Contains fields for student ID, name, date of birth, grade details, fee details,
  * and selected sports.
  * </p>
  */
 public class StudentInfoDto {
-    private int id;
+    private UUID id;
     private String name;
-    private String dob;
+    private LocalDate dob;
+    private int age;
     private CreateGradeDto grade;
     private CreateFeeDto fee;
     private Set<String> selectedSports;
 
-    public int getId() {
+    public UUID getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(UUID id) {
         this.id = id;
     }
 
@@ -33,12 +36,20 @@ public class StudentInfoDto {
         this.name = name;
     }
 
-    public String getDob() {
+    public LocalDate getDob() {
         return dob;
     }
 
-    public void setDob(String dob) {
+    public void setDob(LocalDate dob) {
         this.dob = dob;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
     }
 
     public CreateGradeDto getGrade() {

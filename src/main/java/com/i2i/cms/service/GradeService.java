@@ -1,36 +1,36 @@
 package com.i2i.cms.service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
-import com.i2i.cms.dto.ResponseGradeDto;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.i2i.cms.controller.GradeController;
 import com.i2i.cms.customexception.StudentException;
 import com.i2i.cms.dto.CreateFeeDto;
-import com.i2i.cms.dto.CreateGradeDto;
+import com.i2i.cms.dto.ResponseGradeDto;
 import com.i2i.cms.model.FeeDetail;
 import com.i2i.cms.model.Grade;
-import com.i2i.cms.model.Student;
 import com.i2i.cms.model.Sport;
+import com.i2i.cms.model.Student;
 import com.i2i.cms.repository.GradeRepository;
 
 /**
  * <p>
- * This class manages operations related to grades.
+ * Service class for handling operations related to grades and students.
  * </p>
  */
 @Service
 public class GradeService {
+    private static final Logger logger = LoggerFactory.getLogger(GradeService.class);
+
     @Autowired
     private GradeRepository gradeRepository;
-    private static final Logger logger = LoggerFactory.getLogger(GradeController.class);
 
     /**
      * <p>
@@ -38,8 +38,8 @@ public class GradeService {
      * </p>
      * @param standard The standard of the grade (1 to 12).
      * @param section  The section of the grade (A, B, or C).
-     * @return The Grade object that was added or retrieved from the database.
-     * @throws StudentException If an error occurs while adding or retrieving the grade.
+     * @return the added Grade object
+     * @throws StudentException if an error occurs while adding the grade
      */
     public Grade addGrade(int standard, String section) throws StudentException {
         try {
@@ -63,22 +63,23 @@ public class GradeService {
 
     /**
      * <p>
-     * Retrieves a list of StudentDto objects belonging to a specific grade identified by gradeId.
+     * Finds students associated with the given grade ID and returns their details as a list of ResponseGradeDto.
      * </p>
-     * @param gradeId The ID of the grade for which students are to be retrieved.
-     * @return A list of StudentDto objects representing students in the grade.
-     * @throws StudentException If an error occurs while retrieving students for the grade.
+     * @param gradeId the UUID of the grade to search for
+     * @return a list of ResponseGradeDto objects representing students in the grade
+     * @throws StudentException if an error occurs while retrieving students
      */
-    public List<ResponseGradeDto> findStudentsByGradeId(int gradeId) throws StudentException {
+    public List<ResponseGradeDto> findStudentsByGradeId(UUID gradeId) throws StudentException {
         try {
             logger.debug("Finding students for grade ID {}", gradeId);
-            Grade grade = gradeRepository.findById(gradeId);
-            if (null == grade) {
+            Optional<Grade> gradeOptional = gradeRepository.findById(gradeId);
+            if (!gradeOptional.isPresent()) {
                 logger.warn("Grade ID {} not found", gradeId);
-                return null;
+                throw new StudentException("Grade ID not found: " + gradeId);
             }
+            Grade grade = gradeOptional.get();
             Set<Student> students = grade.getStudents();
-            logger.debug("Found students for grade ID {}", gradeId);
+            logger.debug("Found {} students for grade ID {}", students.size(), gradeId);
             return students.stream()
                     .map(this::mapToResponseGradeDto)
                     .collect(Collectors.toList());
@@ -90,14 +91,14 @@ public class GradeService {
 
     /**
      * <p>
-     * Maps a Student object to a StudentDto object.
+     * Maps a Student entity to a ResponseGradeDto object.
      * </p>
-     * @param student The Student object to be mapped.
-     * @return A StudentDto object containing mapped attributes from the Student object.
+     * @param student the Student entity to map
+     * @return the mapped ResponseGradeDto object
      */
     private ResponseGradeDto mapToResponseGradeDto(Student student) {
         ResponseGradeDto responseGradeDto = new ResponseGradeDto();
-        responseGradeDto.setId(student.getId());
+        responseGradeDto.setId(student.getId()); // Assuming ID is UUID
         responseGradeDto.setName(student.getName());
         responseGradeDto.setDob(student.getDob());
         FeeDetail feeDetail = student.getFeeDetail();
@@ -115,5 +116,3 @@ public class GradeService {
         return responseGradeDto;
     }
 }
-
-
