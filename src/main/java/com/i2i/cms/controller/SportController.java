@@ -28,7 +28,7 @@ public class SportController {
      * <p>
      * POST endpoint to add a new sport.
      * </p>
-     * @param createSportDto The CreateSportDto object containing sport details to be added.
+     * @param  createSportDto {@link CreateSportDto}
      * @return the HTTP response after adding a sport.
      */
     @PostMapping

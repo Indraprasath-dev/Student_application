@@ -33,14 +33,14 @@ public class StudentController {
      * <p>
      * Endpoint to add a new student.
      * </p>
-     * @param  {@link CreateStudentDto}
-     * Return CREATED status with the created StudentInfoDto on success, or INTERNAL_SERVER_ERROR on failure.
+     * @param createStudentDto {@link CreateStudentDto}
+     * @return CREATED status with the created StudentInfoDto on success, or INTERNAL_SERVER_ERROR on failure.
      */
     @PostMapping
     public ResponseEntity<?> addStudent(@RequestBody CreateStudentDto createStudentDto) {
         try {
             if(!DateUtil.isValidateDate(createStudentDto.getDob())){
-                return new ResponseEntity<>("PROVIDED A VALID DATE", HttpStatus.BAD_REQUEST);
+                return new ResponseEntity<>("Provide a valid date", HttpStatus.BAD_REQUEST);
             }
             else {
                 logger.info("Adding student");
@@ -58,7 +58,7 @@ public class StudentController {
      * <p>
      * Endpoint to fetch all students.
      * </p>
-     * Return OK status with a list of StudentInfoDto objects on success, or INTERNAL_SERVER_ERROR on failure.
+     * @return OK status with a list of StudentInfoDto objects on success, or INTERNAL_SERVER_ERROR on failure.
      */
     @GetMapping
     public ResponseEntity<?> fetchAllStudents() {
@@ -77,7 +77,8 @@ public class StudentController {
      * <p>
      * Endpoint to fetch a student by ID.
      * </p>
-     * Return OK status with the StudentInfoDto if found, NOT_FOUND if no student found, or INTERNAL_SERVER_ERROR on failure.
+     * @param id The id of the student to retrieve details.
+     * @return OK status with the StudentInfoDto if found, NOT_FOUND if no student found, or INTERNAL_SERVER_ERROR on failure.
      */
     @GetMapping("/{id}")
     public ResponseEntity<?> findStudentById(@PathVariable UUID id) {
@@ -86,7 +87,7 @@ public class StudentController {
             StudentInfoDto studentInfoDto = studentService.findStudentById(id);
             if (null == studentInfoDto) {
                 logger.warn("Student with ID {} not found", id);
-                return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("INVALID ID");
             }
             logger.info("Student with ID {} found", id);
             return ResponseEntity.ok(studentInfoDto);
@@ -122,7 +123,8 @@ public class StudentController {
      * <p>
      * Endpoint to delete a student by ID.
      * </p>
-     * Return NO_CONTENT status if student deleted successfully, NOT_FOUND if no student found, or INTERNAL_SERVER_ERROR on failure.
+     * @param id The id of the student to delete student detail.
+     * @return NO_CONTENT status if student deleted successfully, NOT_FOUND if no student found, or INTERNAL_SERVER_ERROR on failure.
      */
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteStudentById(@PathVariable UUID id) {
