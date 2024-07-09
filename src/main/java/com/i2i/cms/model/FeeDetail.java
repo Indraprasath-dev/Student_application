@@ -8,6 +8,10 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 /**
  * <p>
@@ -15,6 +19,10 @@ import jakarta.persistence.Table;
  * bus fee and hostel fee.
  * </p>
  */
+@Setter
+@Getter
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "fee_details")
 public class FeeDetail {
@@ -35,44 +43,4 @@ public class FeeDetail {
     @OneToOne
     @JoinColumn(name = "student_id")
     private Student student;
-
-    public int getFeeId() {
-        return feeId;
-    }
-
-    public void setFeeId(int feeId) {
-        this.feeId = feeId;
-    }
-
-    public int getTuitionFee() {
-        return tuitionFee;
-    }
-
-    public void setTuitionFee(int tuitionFee) {
-        this.tuitionFee = tuitionFee;
-    }
-
-    public int getBusFee() {
-        return busFee;
-    }
-
-    public void setBusFee(int busFee) {
-        this.busFee = busFee;
-    }
-
-    public int getHostelFee() {
-        return hostelFee;
-    }
-
-    public void setHostelFee(int hostelFee) {
-        this.hostelFee = hostelFee;
-    }
-
-    public Student getStudent() {
-        return student;
-    }
-
-    public void setStudent(Student student) {
-        this.student = student;
-    }
 }

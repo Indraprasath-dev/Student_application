@@ -10,6 +10,10 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.JdbcTypeCode;
@@ -21,6 +25,10 @@ import org.hibernate.type.SqlTypes;
  * section and students.
  * </p>
  */
+@Setter
+@Getter
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "grades")
 public class Grade {
@@ -39,36 +47,4 @@ public class Grade {
 
     @OneToMany(mappedBy = "grade", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Set<Student> students;
-
-    public void setGradeId(UUID gradeId) {
-        this.gradeId = gradeId;
-    }
-
-    public UUID getGradeId() {
-        return gradeId;
-    }
-
-    public void setStandard(int standard) {
-        this.standard = standard;
-    }
-
-    public int getStandard() {
-        return standard;
-    }
-
-    public void setSection(String section) {
-        this.section = section;
-    }
-
-    public String getSection() {
-        return section;
-    }
-
-    public void setStudents(Set<Student> students) {
-        this.students = students;
-    }
-
-    public Set<Student> getStudents() {
-        return students;
-    }
 }

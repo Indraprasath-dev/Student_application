@@ -15,6 +15,10 @@ import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.JdbcTypeCode;
@@ -24,6 +28,10 @@ import org.hibernate.type.SqlTypes;
  * Represents a student with associated information such as ID, name,
  * date of birth, grade, fee details, and sports activities.
  */
+@Setter
+@Getter
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "students")
 public class Student {
@@ -55,52 +63,4 @@ public class Student {
             inverseJoinColumns = @JoinColumn(name = "sport_id")
     )
     private Set<Sport> sports;
-
-    public UUID getId() {
-        return id;
-    }
-
-    public void setId(UUID id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public LocalDate getDob() {
-        return dob;
-    }
-
-    public void setDob(LocalDate dob) {
-        this.dob = dob;
-    }
-
-    public FeeDetail getFeeDetail() {
-        return feeDetail;
-    }
-
-    public void setFeeDetail(FeeDetail feeDetail) {
-        this.feeDetail = feeDetail;
-    }
-
-    public Grade getGrade() {
-        return grade;
-    }
-
-    public void setGrade(Grade grade) {
-        this.grade = grade;
-    }
-
-    public Set<Sport> getSports() {
-        return sports;
-    }
-
-    public void setSports(Set<Sport> sports) {
-        this.sports = sports;
-    }
 }

@@ -16,6 +16,7 @@ import com.i2i.cms.dto.StudentInfoDto;
 import com.i2i.cms.dto.UpdateStudentDto;
 import com.i2i.cms.service.StudentService;
 import com.i2i.cms.util.DateUtil;
+import com.i2i.cms.util.StringUtil;
 
 /**
  * <p>
@@ -39,10 +40,13 @@ public class StudentController {
     @PostMapping
     public ResponseEntity<?> addStudent(@RequestBody CreateStudentDto createStudentDto) {
         try {
-            if(!DateUtil.isValidateDate(createStudentDto.getDob())){
+            if(!StringUtil.isValidName(createStudentDto.getName())) {
+                return new ResponseEntity<>("Provide a valid name", HttpStatus.BAD_REQUEST);
+            } else if(!DateUtil.isValidateDate(createStudentDto.getDob())){
                 return new ResponseEntity<>("Provide a valid date", HttpStatus.BAD_REQUEST);
-            }
-            else {
+            } else if(!StringUtil.isValidSection(createStudentDto.getGrade().getSection())) {
+                return new ResponseEntity<>("Provide a valid section", HttpStatus.BAD_REQUEST);
+            } else {
                 logger.info("Adding student");
                 StudentInfoDto studentInfoDto = studentService.addStudent(createStudentDto);
                 logger.info("Student added successfully with ID: {}", studentInfoDto.getId());
@@ -78,7 +82,8 @@ public class StudentController {
      * Endpoint to fetch a student by ID.
      * </p>
      * @param id The id of the student to retrieve details.
-     * @return OK status with the StudentInfoDto if found, NOT_FOUND if no student found, or INTERNAL_SERVER_ERROR on failure.
+     * @return OK status with the StudentInfoDto if found, NOT_FOUND if no student found, or INTERNAL_SERVER_ERROR
+     * on failure.
      */
     @GetMapping("/{id}")
     public ResponseEntity<?> findStudentById(@PathVariable UUID id) {
@@ -110,11 +115,17 @@ public class StudentController {
     public ResponseEntity<?> updateStudentById(@PathVariable UUID id, @RequestBody UpdateStudentDto updateStudentDto) {
         try {
             updateStudentDto.setId(id);
-            StudentInfoDto studentInfoDto = studentService.updateStudentById(updateStudentDto);
-            if (null == studentInfoDto) {
-                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Not a valid ID");
+            if(!StringUtil.isValidName(updateStudentDto.getName())) {
+                return new ResponseEntity<>("Provide a valid name", HttpStatus.BAD_REQUEST);
+            } else if(!DateUtil.isValidateDate(updateStudentDto.getDob())){
+                return new ResponseEntity<>("Provide a valid date", HttpStatus.BAD_REQUEST);
+            } else {
+                StudentInfoDto studentInfoDto = studentService.updateStudentById(updateStudentDto);
+                if (null == studentInfoDto) {
+                    return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Not a valid ID");
+                }
+                return ResponseEntity.status(HttpStatus.OK).body(studentInfoDto);
             }
-            return ResponseEntity.status(HttpStatus.OK).body(studentInfoDto);
         } catch (StudentException e) {
             logger.error("Error updating student with ID: {}", e);
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());

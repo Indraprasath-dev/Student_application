@@ -8,6 +8,10 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.JdbcTypeCode;
@@ -19,6 +23,10 @@ import org.hibernate.type.SqlTypes;
  * and coach.
  * </p>
  */
+@Setter
+@Getter
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "sports")
 public class Sport {
@@ -37,36 +45,4 @@ public class Sport {
 
     @ManyToMany(mappedBy = "sports")
     private Set<Student> students;
-
-    public UUID getSportId() {
-        return sportId;
-    }
-
-    public void setSportId(UUID sportId) {
-        this.sportId = sportId;
-    }
-
-    public String getSportName() {
-        return sportName;
-    }
-
-    public void setSportName(String sportName) {
-        this.sportName = sportName;
-    }
-
-    public String getCoach() {
-        return coach;
-    }
-
-    public void setCoach(String coach) {
-        this.coach = coach;
-    }
-
-    public Set<Student> getStudents() {
-        return students;
-    }
-
-    public void setStudents(Set<Student> students) {
-        this.students = students;
-    }
 }

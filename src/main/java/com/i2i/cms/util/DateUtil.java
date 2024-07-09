@@ -36,7 +36,7 @@ public class DateUtil {
     public static boolean isValidateDate(LocalDate date) {
         try {
             if ((!date.isAfter(LocalDate.now())) &&
-                    (!date.isBefore(LocalDate.now().minus(50, ChronoUnit.YEARS)))) {
+                    (!date.isBefore(LocalDate.now().minus(30, ChronoUnit.YEARS)))) {
                 return true;
             }
             return false;
