@@ -2,12 +2,23 @@ package com.i2i.cms.model;
 
 import java.util.Set;
 import java.util.UUID;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.Table;
 
-import jakarta.persistence.*;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
 
+/**
+ * <p>
+ * Represents the sport details of a student, including sport ID, sport name,
+ * and coach.
+ * </p>
+ */
 @Entity
 @Table(name = "sports")
 public class Sport {

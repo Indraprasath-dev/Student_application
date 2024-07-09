@@ -2,9 +2,7 @@ package com.i2i.cms.repository;
 
 import java.util.Optional;
 import java.util.UUID;
-
 import org.springframework.data.jpa.repository.JpaRepository;
-
 import com.i2i.cms.model.Student;
 
 /**

@@ -1,6 +1,6 @@
 package com.i2i.cms.dto;
-import java.util.UUID;
 
+import java.util.UUID;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
