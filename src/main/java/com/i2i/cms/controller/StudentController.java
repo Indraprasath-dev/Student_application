@@ -3,6 +3,7 @@ package com.i2i.cms.controller;
 import java.util.List;
 import java.util.UUID;
 
+import com.i2i.cms.util.GradeUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,7 +45,9 @@ public class StudentController {
                 return new ResponseEntity<>("Provide a valid name", HttpStatus.BAD_REQUEST);
             } else if(!DateUtil.isValidateDate(createStudentDto.getDob())){
                 return new ResponseEntity<>("Provide a valid date", HttpStatus.BAD_REQUEST);
-            } else if(!StringUtil.isValidSection(createStudentDto.getGrade().getSection())) {
+            } else if(!GradeUtil.isValidStandard(createStudentDto.getGrade().getStandard())) {
+                return new ResponseEntity<>("Provide a valid standard", HttpStatus.BAD_REQUEST);
+            } else if(!GradeUtil.isValidSection(createStudentDto.getGrade().getSection())) {
                 return new ResponseEntity<>("Provide a valid section", HttpStatus.BAD_REQUEST);
             } else {
                 logger.info("Adding student");

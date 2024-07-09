@@ -20,17 +20,4 @@ public class StringUtil {
     public static boolean isValidName(String name) {
         return name.matches("[a-zA-Z]+");
     }
-
-    /**
-     * <p>
-     *  Determines whether the given section is in correct format or not.
-     *  Valid section should contain alphabets ranging from A-C or a-c.
-     * </p>
-     * @param section
-     *        The section to be validated.
-     * @return True if the section is in the correct format, otherwise false.
-     */
-    public static boolean isValidSection(String section ) {
-        return section.matches("[a-cA-C]+");
-    }
 }
