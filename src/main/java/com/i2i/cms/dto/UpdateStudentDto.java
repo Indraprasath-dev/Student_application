@@ -2,33 +2,23 @@ package com.i2i.cms.dto;
 
 import java.time.LocalDate;
 import java.util.UUID;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
+/**
+ * <p>
+ * Data Transfer Object representing fee details.
+ * Contains fields for id, name, and dob.
+ * </p>
+ */
+@Setter
+@Getter
+@NoArgsConstructor
+@AllArgsConstructor
 public class UpdateStudentDto {
     private UUID id;
     private String name;
     private LocalDate dob;
-
-    public UUID getId() {
-        return id;
-    }
-
-    public void setId(UUID id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public LocalDate getDob() {
-        return dob;
-    }
-
-    public void setDob(LocalDate dob) {
-        this.dob = dob;
-    }
 }

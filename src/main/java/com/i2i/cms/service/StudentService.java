@@ -28,13 +28,10 @@ import com.i2i.cms.repository.StudentRepository;
 @Service
 public class StudentService implements StudentServiceInterface {
     private static final Logger logger = LoggerFactory.getLogger(StudentService.class);
-
     @Autowired
     private StudentRepository studentRepository;
-
     @Autowired
     private GradeService gradeService;
-
     @Autowired
     private SportService sportService;
 

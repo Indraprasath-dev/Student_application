@@ -23,7 +23,7 @@ import com.i2i.cms.service.StudentService;
  * </p>
  */
 @RestController
-@RequestMapping("/cms/api/v1/students")
+@RequestMapping("/students")
 public class StudentController {
     private static final Logger logger = LoggerFactory.getLogger(StudentController.class);
     @Autowired

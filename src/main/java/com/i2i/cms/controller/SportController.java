@@ -18,7 +18,7 @@ import com.i2i.cms.service.SportService;
  * </p>
  */
 @RestController
-@RequestMapping("/cms/api/v1/sports")
+@RequestMapping("/sports")
 public class SportController {
     private static final Logger logger = LoggerFactory.getLogger(SportController.class);
     @Autowired

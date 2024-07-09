@@ -4,6 +4,9 @@ import java.util.Set;
 import java.util.UUID;
 
 import jakarta.persistence.*;
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
 
 /**
  * <p>
@@ -15,8 +18,10 @@ import jakarta.persistence.*;
 @Table(name = "grades")
 public class Grade {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "grade_id", updatable = false, nullable = false)
+    @GeneratedValue(generator = "UUID")
+    @GenericGenerator(name = "UUID", strategy = "uuid2")
+    @JdbcTypeCode(SqlTypes.VARCHAR)
+    @Column(name = "grade_id", columnDefinition = "VARCHAR(36)")
     private UUID gradeId;
 
     @Column(name = "standard", nullable = false)
@@ -26,7 +31,6 @@ public class Grade {
     private String section;
 
     @OneToMany(mappedBy = "grade", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    //@JsonBackReference
     private Set<Student> students;
 
     public void setGradeId(UUID gradeId) {

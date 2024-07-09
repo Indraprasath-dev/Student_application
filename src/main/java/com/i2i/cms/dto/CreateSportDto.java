@@ -1,28 +1,21 @@
 package com.i2i.cms.dto;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 /**
  * <p>
  * Data Transfer Object representing sport details for creating a student sports.
  * Contains fields for sport name and coach.
  * </p>
  */
+@Setter
+@Getter
+@NoArgsConstructor
+@AllArgsConstructor
 public class CreateSportDto {
     private String sportName;
     private String coach;
-
-    public String getSportName() {
-        return sportName;
-    }
-
-    public void setSportName(String sportName) {
-        this.sportName = sportName;
-    }
-
-    public String getCoach() {
-        return coach;
-    }
-
-    public void setCoach(String coach) {
-        this.coach = coach;
-    }
 }

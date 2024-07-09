@@ -4,13 +4,18 @@ import java.util.Set;
 import java.util.UUID;
 
 import jakarta.persistence.*;
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
 
 @Entity
 @Table(name = "sports")
 public class Sport {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "sport_id", nullable = false)
+    @GeneratedValue(generator = "UUID")
+    @GenericGenerator(name = "UUID", strategy = "uuid2")
+    @JdbcTypeCode(SqlTypes.VARCHAR)
+    @Column(name = "sport_id", columnDefinition = "VARCHAR(36)")
     private UUID sportId;
 
     @Column(name = "sport_name", length = 20, nullable = false)

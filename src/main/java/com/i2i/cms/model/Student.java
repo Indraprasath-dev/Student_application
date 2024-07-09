@@ -3,36 +3,37 @@ package com.i2i.cms.model;
 import java.time.LocalDate;
 import java.util.Set;
 import java.util.UUID;
-
 import jakarta.persistence.*;
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
 
 /**
- * <p>
  * Represents a student with associated information such as ID, name,
  * date of birth, grade, fee details, and sports activities.
- * </p>
  */
 @Entity
 @Table(name = "students")
 public class Student {
     @Id
-    @Column(name = "id", updatable = false, nullable = false)
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(generator = "UUID")
+    @GenericGenerator(name = "UUID", strategy = "uuid2")
+    @JdbcTypeCode(SqlTypes.VARCHAR)
+    @Column(name = "id", columnDefinition = "VARCHAR(36)")
     private UUID id;
 
     @Column(name = "name", nullable = false, length = 20)
     private String name;
 
-    @Temporal(TemporalType.DATE)
     @Column(name = "dob", nullable = false)
     private LocalDate dob;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "fee_id")
+    @JoinColumn(name = "fee_id", nullable = true)
     private FeeDetail feeDetail;
 
     @ManyToOne
-    @JoinColumn(name = "grade_id")
+    @JoinColumn(name = "grade_id", nullable = true)
     private Grade grade;
 
     @ManyToMany(fetch = FetchType.EAGER)
