@@ -25,7 +25,7 @@ public class SportController {
     private static final Logger logger = LoggerFactory.getLogger(SportController.class);
     @Autowired
     private SportService sportService;
-    
+
     /**
      * <p>
      * POST endpoint to add a new sport.

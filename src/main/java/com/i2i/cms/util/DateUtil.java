@@ -28,7 +28,7 @@ public class DateUtil {
 
     /**
      * <p>
-     * Validates if the given date is within a reasonable range (not more than 50 years ago and not in the future).
+     * Validates if the given date is within a reasonable range (not more than 30 years ago and not in the future).
      * </p>
      * @param date The date to validate.
      * @return true if the date is valid within the specified range, false otherwise.

@@ -130,7 +130,7 @@ public class StudentController {
                 return ResponseEntity.status(HttpStatus.OK).body(studentInfoDto);
             }
         } catch (StudentException e) {
-            logger.error("Error updating the student", e);
+            logger.error("Error updating the student with ID : {}", id, e);
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
         }
     }
