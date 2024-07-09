@@ -25,8 +25,10 @@ import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
 
 /**
+ * <p>
  * Represents a student with associated information such as ID, name,
  * date of birth, grade, fee details, and sports activities.
+ * </p>
  */
 @Setter
 @Getter

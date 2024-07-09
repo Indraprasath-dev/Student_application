@@ -3,7 +3,6 @@ package com.i2i.cms.controller;
 import java.util.List;
 import java.util.UUID;
 
-import com.i2i.cms.util.GradeUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +16,7 @@ import com.i2i.cms.dto.StudentInfoDto;
 import com.i2i.cms.dto.UpdateStudentDto;
 import com.i2i.cms.service.StudentService;
 import com.i2i.cms.util.DateUtil;
+import com.i2i.cms.util.GradeUtil;
 import com.i2i.cms.util.StringUtil;
 
 /**
@@ -130,7 +130,7 @@ public class StudentController {
                 return ResponseEntity.status(HttpStatus.OK).body(studentInfoDto);
             }
         } catch (StudentException e) {
-            logger.error("Error updating student with ID: {}", e);
+            logger.error("Error updating the student", e);
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
         }
     }
