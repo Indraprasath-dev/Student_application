@@ -2,7 +2,6 @@ package com.i2i.cms.dto;
 
 import java.time.LocalDate;
 import java.util.List;
-import java.util.UUID;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -23,5 +22,5 @@ public class CreateStudentDto {
     private LocalDate dob;
     private CreateGradeDto grade;
     private CreateFeeDto fee;
-    private List<UUID> selectedSports;
+    private List<String> selectedSports;
 }

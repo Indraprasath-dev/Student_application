@@ -3,26 +3,12 @@ package com.i2i.cms.model;
 import java.time.LocalDate;
 import java.util.Set;
 import java.util.UUID;
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.JoinTable;
-import jakarta.persistence.ManyToMany;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToOne;
-import jakarta.persistence.Table;
+
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
-import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.annotations.JdbcTypeCode;
-import org.hibernate.type.SqlTypes;
 
 /**
  * <p>
@@ -38,11 +24,8 @@ import org.hibernate.type.SqlTypes;
 @Table(name = "students")
 public class Student {
     @Id
-    @GeneratedValue(generator = "UUID")
-    @GenericGenerator(name = "UUID", strategy = "uuid2")
-    @JdbcTypeCode(SqlTypes.VARCHAR)
     @Column(name = "id", columnDefinition = "VARCHAR(36)")
-    private UUID id;
+    private String id;
 
     @Column(name = "name", nullable = false, length = 20)
     private String name;
@@ -51,11 +34,11 @@ public class Student {
     private LocalDate dob;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "fee_id", nullable = true)
+    @JoinColumn(name = "fee_id")
     private FeeDetail feeDetail;
 
     @ManyToOne
-    @JoinColumn(name = "grade_id", nullable = true)
+    @JoinColumn(name = "grade_id")
     private Grade grade;
 
     @ManyToMany(fetch = FetchType.EAGER)
@@ -65,4 +48,11 @@ public class Student {
             inverseJoinColumns = @JoinColumn(name = "sport_id")
     )
     private Set<Sport> sports;
+
+    @PrePersist
+    protected void onCreate() {
+        if (null == this.id) {
+            this.id = UUID.randomUUID().toString();
+        }
+    }
 }

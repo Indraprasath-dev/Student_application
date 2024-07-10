@@ -3,7 +3,6 @@ package com.i2i.cms.service;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
-import java.util.UUID;
 import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
@@ -97,37 +96,13 @@ public class StudentService implements StudentServiceInterface {
 
     /**
      * <p>
-     * Deletes a student based on the provided student ID.
-     * </p>
-     * @param studentId The ID of the student to be deleted.
-     * @return True if the student was successfully deleted, false otherwise.
-     * @throws StudentException If an error occurs while deleting the student.
-     */
-     public boolean deleteStudentById(UUID studentId) throws StudentException {
-        try {
-            logger.debug("Deleting student with ID: {}", studentId);
-            if (!studentRepository.existsById(studentId)) {
-                logger.warn("Student with ID {} not found for deletion", studentId);
-                return false;
-            }
-            studentRepository.deleteById(studentId);
-            logger.info("Student with ID {} deleted successfully", studentId);
-            return true;
-        } catch (Exception e) {
-            logger.error("Error deleting student with ID: {}", studentId, e);
-            throw new StudentException("Error deleting student with ID " + studentId, e);
-        }
-    }
-
-    /**
-     * <p>
      * Finds a student by their ID.
      * </p>
      * @param studentId The ID of the student to find.
      * @return The StudentInfoDto object representing the found student, or null if not found.
      * @throws StudentException If an error occurs while finding the student.
      */
-    public StudentInfoDto findStudentById(UUID studentId) throws StudentException {
+    public StudentInfoDto findStudentById(String studentId) throws StudentException {
         try {
             logger.debug("Finding student with ID: {}", studentId);
             Optional<Student> studentOptional = studentRepository.findById(studentId);
@@ -170,12 +145,38 @@ public class StudentService implements StudentServiceInterface {
 
     /**
      * <p>
+     * Deletes a student based on the provided student ID.
+     * </p>
+     * @param studentId The ID of the student to be deleted.
+     * @return True if the student was successfully deleted, false otherwise.
+     * @throws StudentException If an error occurs while deleting the student.
+     */
+    public boolean deleteStudentById(String studentId) throws StudentException {
+        try {
+            Optional<Student> student = studentRepository.findById(studentId);
+            if (student.isPresent()) {
+                logger.debug("Deleting student with ID: {}", studentId);
+                Student studentToDelete = student.get();
+                studentToDelete.getGrade().getStudents().remove(studentToDelete);
+                studentRepository.delete(studentToDelete);
+                logger.info("Student with ID {} deleted successfully", studentId);
+                return true;
+            }
+            return false;
+        } catch (Exception e) {
+            logger.error("Error deleting student with ID: {}", studentId, e);
+            throw new StudentException("Error deleting student with ID " + studentId, e);
+        }
+    }
+
+    /**
+     * <p>
      * Maps a Student entity to a StudentInfoDto object.
      * </p>
      * @param student The Student entity to be mapped.
      * @return The StudentInfoDto object containing mapped attributes from the Student entity.
      */
-    public StudentInfoDto mapToStudentInfoDto(Student student) {
+    private StudentInfoDto mapToStudentInfoDto(Student student) {
         StudentInfoDto studentInfoDto = new StudentInfoDto();
         studentInfoDto.setId(student.getId());
         studentInfoDto.setName(student.getName());

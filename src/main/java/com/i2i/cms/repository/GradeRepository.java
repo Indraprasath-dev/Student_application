@@ -13,7 +13,6 @@ import com.i2i.cms.model.Grade;
  * </p>
  */
 @Repository
-public interface GradeRepository extends JpaRepository<Grade, UUID> {
+public interface GradeRepository extends JpaRepository<Grade, String> {
     Grade findGradeByStandardAndSection(int standard, String section);
-    Optional<Grade> findById(UUID gradeId);
 }

@@ -3,7 +3,6 @@ package com.i2i.cms.service;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
-import java.util.UUID;
 import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
@@ -68,7 +67,7 @@ public class GradeService {
      * @return a list of ResponseGradeDto objects representing students in the grade
      * @throws StudentException if an error occurs while retrieving students
      */
-    public List<ResponseGradeDto> findStudentsByGradeId(UUID gradeId) throws StudentException {
+    public List<ResponseGradeDto> findStudentsByGradeId(String gradeId) throws StudentException {
         try {
             logger.debug("Finding students for grade ID {}", gradeId);
             Optional<Grade> gradeOptional = gradeRepository.findById(gradeId);

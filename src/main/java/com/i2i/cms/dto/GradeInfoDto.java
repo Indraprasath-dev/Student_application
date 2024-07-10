@@ -1,6 +1,5 @@
 package com.i2i.cms.dto;
 
-import java.util.UUID;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -17,7 +16,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class GradeInfoDto {
-    private UUID gradeId;
+    private String gradeId;
     private int standard;
     private String section;
 }

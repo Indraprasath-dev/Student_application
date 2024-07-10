@@ -2,7 +2,6 @@ package com.i2i.cms.service;
 
 import java.util.List;
 import java.util.Set;
-import java.util.UUID;
 
 import com.i2i.cms.customexception.StudentException;
 import com.i2i.cms.dto.CreateSportDto;
@@ -35,14 +34,5 @@ public interface SportServiceInterface {
      * @return a set of Sport objects
      * @throws StudentException if there is an error retrieving the sports
      */
-    Set<Sport> retrieveSports(List<UUID> selectedSports) throws StudentException;
-
-    /**
-     * <p>
-     * Maps a Sport object to a ResponseSportDto.
-     * </p>
-     * @param sport the Sport object to map
-     * @return the mapped ResponseSportDto
-     */
-    ResponseSportDto mapToResponseSportDto(Sport sport);
+    Set<Sport> retrieveSports(List<String> selectedSports) throws StudentException;
 }

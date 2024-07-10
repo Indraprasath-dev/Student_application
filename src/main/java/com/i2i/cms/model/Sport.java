@@ -2,20 +2,12 @@ package com.i2i.cms.model;
 
 import java.util.Set;
 import java.util.UUID;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToMany;
-import jakarta.persistence.Table;
+
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
-import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.annotations.JdbcTypeCode;
-import org.hibernate.type.SqlTypes;
 
 /**
  * <p>
@@ -31,11 +23,8 @@ import org.hibernate.type.SqlTypes;
 @Table(name = "sports")
 public class Sport {
     @Id
-    @GeneratedValue(generator = "UUID")
-    @GenericGenerator(name = "UUID", strategy = "uuid2")
-    @JdbcTypeCode(SqlTypes.VARCHAR)
     @Column(name = "sport_id", columnDefinition = "VARCHAR(36)")
-    private UUID sportId;
+    private String sportId;
 
     @Column(name = "sport_name", length = 20, nullable = false)
     private String sportName;
@@ -45,4 +34,11 @@ public class Sport {
 
     @ManyToMany(mappedBy = "sports")
     private Set<Student> students;
+
+    @PrePersist
+    protected void onCreate() {
+        if (null == this.sportId) {
+            this.sportId = UUID.randomUUID().toString();
+        }
+    }
 }

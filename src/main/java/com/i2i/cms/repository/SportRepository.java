@@ -12,5 +12,5 @@ import com.i2i.cms.model.Sport;
  * </p>
  */
 @Repository
-public interface SportRepository extends JpaRepository<Sport, UUID> {
+public interface SportRepository extends JpaRepository<Sport, String> {
 }

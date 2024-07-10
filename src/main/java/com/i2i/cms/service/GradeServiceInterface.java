@@ -1,12 +1,10 @@
 package com.i2i.cms.service;
 
 import java.util.List;
-import java.util.UUID;
 
 import com.i2i.cms.customexception.StudentException;
 import com.i2i.cms.dto.ResponseGradeDto;
 import com.i2i.cms.model.Grade;
-import com.i2i.cms.model.Student;
 
 /**
  * <p>
@@ -35,14 +33,5 @@ public interface GradeServiceInterface {
      * @return a list of ResponseGradeDto representing the students in the specified grade
      * @throws StudentException if there is an error finding the students
      */
-    List<ResponseGradeDto> findStudentsByGradeId(UUID gradeId) throws StudentException;
-
-    /**
-     * <p>
-     * Maps a Student object to a ResponseGradeDto.
-     * </p>
-     * @param student the Student object to map
-     * @return the mapped ResponseGradeDto
-     */
-    ResponseGradeDto mapToResponseGradeDto(Student student);
+    List<ResponseGradeDto> findStudentsByGradeId(String gradeId) throws StudentException;
 }

@@ -11,8 +11,6 @@ import com.i2i.cms.model.Student;
  * Extends JpaRepository to inherit basic CRUD operations.
  * </p>
  */
-public interface StudentRepository extends JpaRepository<Student, UUID> {
-    Optional<Student> findById(UUID studentId);
-    boolean existsById(UUID id);
+public interface StudentRepository extends JpaRepository<Student, String> {
 }
 

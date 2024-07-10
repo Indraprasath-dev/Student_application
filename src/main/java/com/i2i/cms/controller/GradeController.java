@@ -1,7 +1,6 @@
 package com.i2i.cms.controller;
 
 import java.util.List;
-import java.util.UUID;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -33,11 +32,11 @@ public class GradeController {
      * <p>
      * GET endpoint to retrieve students by grade ID.
      * </p>
-     * @param gradeId The UUID of the grade to retrieve students.
+     * @param gradeId The id of the grade to retrieve students.
      * @return ResponseEntity containing a list of ResponseGradeDto objects representing students in the grade.
      */
     @GetMapping("/{gradeId}")
-    public ResponseEntity<?> getStudentsByGradeId(@PathVariable UUID gradeId) {
+    public ResponseEntity<?> getStudentsByGradeId(@PathVariable String gradeId) {
         try {
             logger.info("Retrieving students for grade ID {}", gradeId);
             List<ResponseGradeDto> students = gradeService.findStudentsByGradeId(gradeId);

@@ -1,12 +1,10 @@
 package com.i2i.cms.service;
 
 import java.util.List;
-import java.util.UUID;
 
 import com.i2i.cms.customexception.StudentException;
 import com.i2i.cms.dto.CreateStudentDto;
 import com.i2i.cms.dto.StudentInfoDto;
-import com.i2i.cms.model.Student;
 
 /**
  * <p>
@@ -43,7 +41,7 @@ public interface StudentServiceInterface {
      * @return true if the deletion is successful, false otherwise
      * @throws StudentException if there is an error deleting the student
      */
-    boolean deleteStudentById(UUID studentId) throws StudentException;
+    boolean deleteStudentById(String studentId) throws StudentException;
 
     /**
      * <p>
@@ -53,14 +51,5 @@ public interface StudentServiceInterface {
      * @return the StudentInfoDto representing the found student
      * @throws StudentException if there is an error finding the student
      */
-    StudentInfoDto findStudentById(UUID studentId) throws StudentException;
-
-    /**
-     * <p>
-     * Maps a Student object to a StudentInfoDto.
-     * </p>
-     * @param student the Student object to map
-     * @return the mapped StudentInfoDto
-     */
-    StudentInfoDto mapToStudentInfoDto(Student student);
+    StudentInfoDto findStudentById(String studentId) throws StudentException;
 }

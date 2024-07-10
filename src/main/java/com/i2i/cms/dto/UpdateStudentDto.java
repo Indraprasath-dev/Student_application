@@ -1,7 +1,6 @@
 package com.i2i.cms.dto;
 
 import java.time.LocalDate;
-import java.util.UUID;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -18,7 +17,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class UpdateStudentDto {
-    private UUID id;
+    private String id;
     private String name;
     private LocalDate dob;
 }

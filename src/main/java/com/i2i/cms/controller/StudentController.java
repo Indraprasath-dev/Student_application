@@ -1,7 +1,6 @@
 package com.i2i.cms.controller;
 
 import java.util.List;
-import java.util.UUID;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -89,13 +88,13 @@ public class StudentController {
      * on failure.
      */
     @GetMapping("/{id}")
-    public ResponseEntity<?> findStudentById(@PathVariable UUID id) {
+    public ResponseEntity<?> findStudentById(@PathVariable String id) {
         try {
             logger.info("Fetching student with ID: {}", id);
             StudentInfoDto studentInfoDto = studentService.findStudentById(id);
             if (null == studentInfoDto) {
                 logger.warn("Student with ID {} not found", id);
-                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("INVALID ID");
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Invalid ID");
             }
             logger.info("Student with ID {} found", id);
             return ResponseEntity.ok(studentInfoDto);
@@ -115,7 +114,8 @@ public class StudentController {
      * message if not.
      */
     @PutMapping("/{id}")
-    public ResponseEntity<?> updateStudentById(@PathVariable UUID id, @RequestBody UpdateStudentDto updateStudentDto) {
+    public ResponseEntity<?> updateStudentById(@PathVariable String id, @RequestBody UpdateStudentDto
+                                                                                            updateStudentDto) {
         try {
             updateStudentDto.setId(id);
             if(!StringUtil.isValidName(updateStudentDto.getName())) {
@@ -140,10 +140,11 @@ public class StudentController {
      * Endpoint to delete a student by ID.
      * </p>
      * @param id The id of the student to delete student detail.
-     * @return NO_CONTENT status if student deleted successfully, NOT_FOUND if no student found, or INTERNAL_SERVER_ERROR on failure.
+     * @return NO_CONTENT status if student deleted successfully, NOT_FOUND if no student found, or
+     * INTERNAL_SERVER_ERROR on failure.
      */
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> deleteStudentById(@PathVariable UUID id) {
+    public ResponseEntity<?> deleteStudentById(@PathVariable String id) {
         try {
             logger.info("Deleting student with ID: {}", id);
             boolean deleted = studentService.deleteStudentById(id);
